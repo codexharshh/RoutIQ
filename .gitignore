@@ -1,0 +1,8 @@
+
+# Generated dependencies
+code/node_modules/
+code/backend/.venv/
+__pycache__/
+*.pyc
+.env
+
