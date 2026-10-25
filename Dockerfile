@@ -175,4 +175,4 @@ SUPERVISOR
 # Render's web service must provide a persistent database via DATABASE_URL and
 # secrets through environment variables. Never bake credentials into this image.
 EXPOSE 10000
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --noinput && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/routiq.conf"]
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --database=default --noinput && python manage.py migrate --database=government --noinput && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/routiq.conf"]
