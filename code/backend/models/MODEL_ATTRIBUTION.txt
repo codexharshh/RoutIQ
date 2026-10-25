@@ -1,0 +1,6 @@
+﻿Model: YOLOv8s RDD2022
+Source: https://huggingface.co/SreekarAditya/yolo-rdd2022-benchmark
+Checkpoint: yolov8s_seed0_best.pt
+Classes: D00, D10, D20, D40
+License: CC BY 4.0
+SHA-256: 565aae6915e34e4f7f4c44dac0bdcf9fff21b83c4adc74cc97ca09cc31882ce8

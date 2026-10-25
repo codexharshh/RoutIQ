@@ -1,0 +1,43 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "RoutIQ - Intelligent Road Infrastructure Analytics"
+requires-python = ">=3.11"
+dependencies = [
+    "django>=5.2.4",
+    "fastapi>=0.115,<1.0",
+    "uvicorn>=0.30,<1.0",
+    "requests>=2.32.4",
+    "httpx>=0.27,<1.0",
+    "django-cors-headers>=4.7.0",
+    "django-filter>=25.1",
+    "djangorestframework>=3.16.0",
+    "djangorestframework-simplejwt>=5.5,<6",
+    "pillow>=11.3.0",
+    "dj-database-url>=2.2.0",
+    "gunicorn>=21.2.0",
+    "whitenoise>=6.6.0",
+    "waitress>=3.0.0", # Windows-compatible WSGI server
+    # Dashcam processing dependencies
+    "opencv-python>=4.8.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "ultralytics>=8.0.0",
+    "easyocr>=1.7.0",
+    "geopy>=2.3.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "cvzone>=1.6.1",
+    "python-dotenv>=1.2.2",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "routiq_config*", "potholes*", "accounts*", "government*",
+    "dashcam_processor*", "fastapi_service*", "road_damage*",
+    "road_observations*", "temporal_monitoring*",
+]

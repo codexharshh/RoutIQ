@@ -1,8 +1,256 @@
 
-# Generated dependencies
-code/node_modules/
-code/backend/.venv/
-__pycache__/
-*.pyc
-.env
 
+# -------------------- ENVIRONMENT SECRETS --------------------
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+secrets.json
+credentials.json
+code/backend/gunicorn/gunicorn.env
+
+# -------------------- PYTHON --------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python tooling
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+nosetests.xml
+.hypothesis/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+.ipynb_checkpoints/
+.python-version
+
+# Django
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+database2.sqlite3
+staticfiles/
+
+# Flask
+instance/
+.webassets-cache/
+
+# -------------------- MACHINE LEARNING --------------------
+# Large model weights
+*.pt
+*.pth
+*.onnx
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.model
+*.weights
+
+# Training outputs
+runs/
+wandb/
+tensorboard/
+mlruns/
+checkpoints/
+sam_checkpoints/
+
+# -------------------- DATA AND PROCESSING OUTPUTS --------------------
+# Ignore only known generated or sensitive project data.
+code/backend/sample_data.csv
+code/backend/pothole_gps_final.csv
+code/backend/dashcam_processor/Media/
+code/backend/dashcam_processor/git/
+code/backend/dashcam_processor/cropped_videos/
+code/backend/dashcam_processor/frames_output/
+code/backend/dashcam_processor/frames_output_100/
+code/backend/dashcam_processor/frame_output/
+code/backend/dashcam_processor/output_ocr/
+code/backend/dashcam_processor/sam_road_outputs/
+code/backend/dashcam_processor/pothole_frames/
+
+# Other generated outputs
+output_ocr/
+cropped_videos/
+frames_output/
+frames_output_100/
+sam_road_outputs/
+pothole_frames/
+uploads/
+temp/
+tmp/
+*.temp
+*.tmp
+
+# -------------------- NODE / REACT / VITE --------------------
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build output
+dist/
+dist-ssr/
+.next/
+.nuxt/
+out/
+
+# Package manager caches
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# TypeScript / frontend caches
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.node_repl_history
+*.local
+
+# -------------------- LOGS AND TEMPORARY FILES --------------------
+*.log
+debug.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+gunicorn_*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# -------------------- EDITORS / IDEs --------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/*.code-workspace
+
+.idea/
+*.iws
+*.iml
+*.ipr
+.spyderproject
+.spyproject
+.ropeproject
+.project
+.classpath
+.factorypath
+.settings/
+.sts4-cache/
+.nbproject/private/
+.nbbuild/
+.vscode-test/
+
+# -------------------- OPERATING SYSTEM --------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# -------------------- BACKUPS --------------------
+*.backup
+*.bak
+*.old
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+
+# -------------------- PROJECT-SPECIFIC GENERATED FILES --------------------
+code/backend/static/
+code/static/
+
+# Local environment and runtime data
+/code/backend/.env
+/code/backend/.venv/
+/code/backend/*.sqlite3
+/code/backend/*.sqlite3-*
+/code/backend/media/
+/code/node_modules/
+/code/dist/
+
+# Environment files and credentials
+/.env
+/.env.*
+!/.env.example
+!/.env.*.example
+/code/.env
+/code/.env.*
+!/code/.env.example
+!/code/.env.*.example
+/code/backend/.env.*
+!/code/backend/.env.example
+!/code/backend/.env.*.example
+
+# Databases and ML inference artifacts
+*.sqlite3
+*.sqlite3-*
+*.db
+*.engine
+
+# Local backups
+/RoutIQ-database-backup-*/
+/RoutIQ-one-shot-recovery-*/
+/RoutIQ-v0-ui-backup-*/
+.routiq-backup-*/
