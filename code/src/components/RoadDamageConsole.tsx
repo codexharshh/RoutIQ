@@ -72,7 +72,7 @@ type AuthPayload = {
   success?: boolean;
 };
 
-const API_ROOT = `${API_BASE_URL.replace(/\\/+$/, '')}/v1`;
+const API_ROOT = `${API_BASE_URL.replace(/\/+$/, '')}/v1`;
 const ACCESS_KEY = 'routiq_access_token';
 const REFRESH_KEY = 'routiq_refresh_token';
 const USER_KEY = 'routiq_user';
