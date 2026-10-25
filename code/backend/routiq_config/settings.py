@@ -136,14 +136,11 @@ if "test" in sys.argv or os.getenv("ROUTIQ_TEST_MODE") == "1":
     }
 else:
     DATABASES["default"] = select_default_database(_database_url, DATABASES["default"])
-    # On hosted deployments, keep legacy government models in the same durable
-    # PostgreSQL database but in their own routed app tables. This avoids losing
-    # government records when an ephemeral container restarts.
-    if _database_url:
-        DATABASES["government"] = select_default_database(_database_url, DATABASES["government"])
 
-# Database router for multi-database setup
-DATABASE_ROUTERS = ['routiq_config.db_router.DatabaseRouter']
+# Local development preserves the legacy split SQLite databases. Hosted
+# PostgreSQL uses one durable database/schema so all RoutIQ records survive
+# restarts; disable the legacy multi-database router in that configuration.
+DATABASE_ROUTERS = [] if _database_url else ['routiq_config.db_router.DatabaseRouter']
 
 
 # Password validation
