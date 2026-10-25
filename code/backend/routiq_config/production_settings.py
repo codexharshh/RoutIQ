@@ -5,6 +5,14 @@ from .settings import *
 # Production settings
 DEBUG = False
 
+# Hosted containers must use a durable PostgreSQL database. Never silently
+# fall back to SQLite in a production environment.
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
+if not DATABASE_URL:
+    raise ImproperlyConfigured(
+        "DATABASE_URL is required in production; configure the hosted PostgreSQL connection."
+    )
+
 def required_csv(name: str) -> list[str]:
     values = [value.strip() for value in os.environ.get(name, "").split(",") if value.strip()]
     if not values:
