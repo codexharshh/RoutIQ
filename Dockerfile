@@ -14,6 +14,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DJANGO_ENVIRONMENT=production \
     DJANGO_DEBUG=false \
+    DJANGO_SETTINGS_MODULE=routiq_config.production_settings \
     PYTHONPATH=/app/code/backend \
     ROUTIQ_DETECTOR_BACKEND=ultralytics \
     ROUTIQ_MODEL_WEIGHTS=/app/code/backend/models/yolov8s_seed0_best.pt \
@@ -91,17 +92,19 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
     }
 
+    # Public legacy road-report media. Private evidence is not served here.
     location /media/ {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Real-IP $remote_addr;
+        alias /app/code/backend/media/;
+        autoindex off;
+        add_header X-Content-Type-Options nosniff always;
     }
 
+    # Collectstatic output is served directly instead of relying on Django's
+    # development-only static() URL helpers.
     location /static/ {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $http_host;
+        alias /app/code/backend/staticfiles/;
+        autoindex off;
+        add_header X-Content-Type-Options nosniff always;
     }
 
     location = /index.html {
