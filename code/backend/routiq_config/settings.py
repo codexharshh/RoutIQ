@@ -136,6 +136,11 @@ if "test" in sys.argv or os.getenv("ROUTIQ_TEST_MODE") == "1":
     }
 else:
     DATABASES["default"] = select_default_database(_database_url, DATABASES["default"])
+    # On hosted deployments, keep legacy government models in the same durable
+    # PostgreSQL database but in their own routed app tables. This avoids losing
+    # government records when an ephemeral container restarts.
+    if _database_url:
+        DATABASES["government"] = select_default_database(_database_url, DATABASES["government"])
 
 # Database router for multi-database setup
 DATABASE_ROUTERS = ['routiq_config.db_router.DatabaseRouter']
@@ -244,11 +249,19 @@ CSRF_TRUSTED_ORIGINS = environment_list(
 )
 CORS_ALLOW_CREDENTIALS = False
 
+# Reverse-proxy security settings for hosted HTTPS deployments.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = os.getenv("DJANGO_SECURE_SSL_REDIRECT", "false").strip().lower() in {"1", "true", "yes"}
+SESSION_COOKIE_SECURE = os.getenv("DJANGO_SESSION_COOKIE_SECURE", "false").strip().lower() in {"1", "true", "yes"}
+CSRF_COOKIE_SECURE = os.getenv("DJANGO_CSRF_COOKIE_SECURE", "false").strip().lower() in {"1", "true", "yes"}
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+
 # Media files (for pothole images)
 #
 # Media URLs follow PRE_URL when configured; local development uses the root /media/ route.
 MEDIA_URL = f"/{PRE_URL.strip('/')}/media/" if PRE_URL.strip("/") else "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.getenv("ROUTIQ_MEDIA_ROOT", "").strip() or os.path.join(BASE_DIR, "media")
 ROUTIQ_PRIVATE_EVIDENCE_ROOT = os.getenv("ROUTIQ_PRIVATE_EVIDENCE_ROOT", "").strip() or str(
     BASE_DIR / "private_evidence"
 )
