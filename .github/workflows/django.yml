@@ -39,6 +39,31 @@ jobs:
       - name: Run Django system check
         run: python manage.py check
 
+      - name: Verify production settings with a PostgreSQL URL
+        env:
+          DJANGO_SETTINGS_MODULE: routiq_config.production_settings
+          DJANGO_SECRET_KEY: ci-only-production-test-key-000000000000000000000000000000000000000000000000
+          DATABASE_URL: postgresql://ci-user:ci-password@127.0.0.1:5432/routiq_ci
+          DJANGO_ALLOWED_HOSTS: localhost,testserver
+          DJANGO_CORS_ALLOWED_ORIGINS: https://routiq.example.invalid
+          DJANGO_CSRF_TRUSTED_ORIGINS: https://routiq.example.invalid
+        run: |
+          python -c "from django.conf import settings; assert settings.DEBUG is False; assert settings.DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql'; assert len(settings.SECRET_KEY) >= 50"
+
+      - name: Verify production settings reject missing DATABASE_URL
+        env:
+          DJANGO_SETTINGS_MODULE: routiq_config.production_settings
+          DJANGO_SECRET_KEY: ci-only-production-test-key-000000000000000000000000000000000000000000000000
+          DJANGO_ALLOWED_HOSTS: localhost,testserver
+          DJANGO_CORS_ALLOWED_ORIGINS: https://routiq.example.invalid
+          DJANGO_CSRF_TRUSTED_ORIGINS: https://routiq.example.invalid
+        run: |
+          if output="$(python -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE'])" 2>&1)"; then
+            echo "Production settings unexpectedly accepted missing DATABASE_URL."
+            exit 1
+          fi
+          echo "$output" | grep -F "DATABASE_URL is required in production"
+
       - name: Run Django tests with isolated test databases
         run: python manage.py test
 
