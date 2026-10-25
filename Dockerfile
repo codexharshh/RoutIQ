@@ -14,7 +14,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DJANGO_ENVIRONMENT=production \
     DJANGO_DEBUG=false \
-    PYTHONPATH=/app/code/backend
+    PYTHONPATH=/app/code/backend \
+    ROUTIQ_DETECTOR_BACKEND=ultralytics \
+    ROUTIQ_MODEL_WEIGHTS=/app/code/backend/models/yolov8s_seed0_best.pt \
+    ROUTIQ_DETECTOR_DEVICE=cpu
 
 WORKDIR /app
 
@@ -29,9 +32,15 @@ COPY --from=frontend-build /app/code/dist/ /app/code/dist/
 
 WORKDIR /app/code/backend
 
-# Install the backend's declared dependencies plus the PostgreSQL driver used by
-# DATABASE_URL deployments. Model weights are downloaded separately and verified.
-RUN pip install --no-cache-dir . "psycopg2-binary>=2.9.9"     && mkdir -p /var/www/routiq /var/log/supervisor /run/nginx
+# Download the attributed RDD2022 checkpoint and verify its published SHA-256.
+# The model is fetched at build time; no model binary or credentials are committed.
+RUN mkdir -p /app/code/backend/models \
+    && curl -fL --retry 3 --retry-delay 2 \
+      "https://huggingface.co/SreekarAditya/yolo-rdd2022-benchmark/resolve/main/yolov8s_seed0_best.pt?download=true" \
+      -o /app/code/backend/models/yolov8s_seed0_best.pt \
+    && echo "565aae6915e34e4f7f4c44dac0bdcf9fff21b83c4adc74cc97ca09cc31882ce8  /app/code/backend/models/yolov8s_seed0_best.pt" | sha256sum -c - \
+    && pip install --no-cache-dir . "psycopg2-binary>=2.9.9" \
+    && mkdir -p /var/www/routiq /var/log/supervisor /run/nginx
 
 # Keep the public UI and Django API on the same origin. FastAPI is not exposed
 # through Nginx and listens only on 127.0.0.1 inside this container.
@@ -95,8 +104,17 @@ server {
         proxy_set_header Host $http_host;
     }
 
-    location /project/routiq/ {
-        try_files $uri $uri/ /project/routiq/index.html;
+    location = /index.html {
+        root /app/code/dist;
+    }
+
+    location ^~ /project/routiq/ {
+        rewrite ^/project/routiq/(.*)$ /$1 break;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /assets/ {
+        try_files $uri =404;
     }
 
     location = / {
