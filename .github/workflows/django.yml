@@ -3,6 +3,7 @@ name: RoutIQ quality checks
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -72,6 +73,7 @@ jobs:
 
       - name: Run frontend API payload test
         run: npx tsx tests/apiPayload.test.mjs
+
       - name: Run GPS location service test
         run: npx tsx tests/gpsLocationService.test.mjs
 
