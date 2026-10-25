@@ -4,7 +4,7 @@
 FROM node:22-bookworm-slim AS frontend-build
 WORKDIR /app/code
 COPY code/package.json code/package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY code/ ./
 RUN npm run build
 
