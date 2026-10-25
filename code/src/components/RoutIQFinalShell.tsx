@@ -391,7 +391,6 @@ export default function RoutIQFinalShell() {
 
     let finished = false;
     // eslint-disable-next-line prefer-const
-    // eslint-disable-next-line prefer-const
     let watchdog: number | undefined;
 
     const finishRequest = () => {
@@ -617,7 +616,7 @@ export default function RoutIQFinalShell() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [searchText, currentLocation.lat, currentLocation.lng]);
+  }, [searchText, currentLocation]);
   useEffect(() => { void refreshPublicData(); }, [refreshPublicData]);
   /* RoutIQ dashboard road-health visibility sync v1 */
   useEffect(() => {
