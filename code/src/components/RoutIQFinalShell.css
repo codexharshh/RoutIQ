@@ -1,0 +1,4055 @@
+/* RoutIQ final v0 UI port — warm cream, muted graphite, restrained yellow accents */
+.routiq-final-root {
+  --ri-bg: #fffaf0;
+  --ri-card: #fffefa;
+  --ri-sidebar: #fffdf6;
+  --ri-text: #191815;
+  --ri-muted: #777267;
+  --ri-border: #e9dfc6;
+  --ri-border-strong: #d9cba8;
+  --ri-yellow: #f7ca38;
+  --ri-yellow-soft: #fff0b6;
+  --ri-yellow-pale: #fff8db;
+  --ri-green: #5d9669;
+  --ri-red: #c85c4d;
+  --ri-blue: #517ca5;
+  --ri-shadow: 0 8px 24px rgba(86, 68, 28, .055);
+  min-height: 100vh;
+  display: flex;
+  background: var(--ri-bg);
+  color: var(--ri-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.routiq-final-root * { box-sizing: border-box; }
+.routiq-final-root button, .routiq-final-root input, .routiq-final-root select { font: inherit; }
+.routiq-final-root button { cursor: pointer; }
+.routiq-final-root button:disabled { opacity: .55; cursor: not-allowed; }
+.ri-sidebar { width: 258px; flex: 0 0 258px; min-height: 100vh; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 25px 15px 16px; background: var(--ri-sidebar); border-right: 1px solid var(--ri-border); z-index: 1200; }
+.ri-brand { display: flex; align-items: center; gap: 11px; padding: 2px 10px 29px; }
+.ri-brand-symbol { display: inline-block; position: relative; width: 42px; height: 43px; flex: 0 0 42px; }
+.ri-brand-symbol span { position: absolute; left: 0; bottom: 2px; width: 29px; height: 30px; background: var(--ri-yellow); border-radius: 17px 17px 7px 7px; transform: skewX(-17deg); }
+.ri-brand-symbol i { position: absolute; left: 15px; bottom: 2px; width: 14px; height: 38px; background: #363633; border-radius: 11px 11px 4px 4px; transform: skewX(-12deg); }
+.ri-brand-copy { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
+.ri-brand-copy strong { font-size: 25px; letter-spacing: -.045em; font-weight: 790; }
+.ri-brand-copy strong span { color: #ae8311; }
+.ri-brand-copy small { color: #756f60; font-size: 8px; font-weight: 700; letter-spacing: .115em; line-height: 1.5; white-space: nowrap; margin-top: 5px; }
+.ri-nav-caption, .ri-nav-section { color: #9a907b; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.ri-nav-caption { padding: 0 13px 11px; }
+.ri-nav { display: flex; flex-direction: column; gap: 3px; }
+.ri-nav-wrap { display: flex; flex-direction: column; gap: 3px; }
+.ri-nav-section { padding: 16px 13px 6px; }
+.ri-nav-item { position: relative; display: flex; gap: 13px; align-items: center; width: 100%; min-height: 44px; padding: 10px 13px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: #625e55; text-align: left; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.ri-nav-item:hover { background: #fff6d7; color: #2a261d; }
+.ri-nav-item.active { background: var(--ri-yellow-soft); color: #211e14; font-weight: 720; border-color: #f5e4a4; box-shadow: inset 3px 0 #e5b729; }
+.ri-nav-item.active svg { color: #a77d07; }
+.ri-nav-item span { flex: 1; }
+.ri-nav-count { min-width: 22px; text-align: center; border-radius: 999px; padding: 1px 6px; font-size: 10px; font-style: normal; background: #f0dfad; color: #655016; }
+.ri-sidebar-spacer { flex: 1; min-height: 24px; }
+.ri-sidebar-promo { overflow: hidden; padding: 13px 13px 15px; margin: 0 2px 13px; border: 1px solid #ecdfb9; border-radius: 13px; background: linear-gradient(150deg, #fff8d9, #fff2b1); }
+.ri-promo-art { position: relative; height: 67px; margin-bottom: 10px; border-radius: 9px; overflow: hidden; background: linear-gradient(160deg, #fff0a4, #e9c65b 62%, #d0d4a3); }
+.ri-promo-art:before { content: ""; position: absolute; width: 150%; height: 27px; left: -18%; top: 28px; background: #72736a; transform: rotate(-13deg); border-radius: 999px; border: 4px solid rgba(255,255,255,.35); }
+.ri-promo-art:after { content: ""; position: absolute; width: 120%; left: -10%; top: 40px; border-top: 2px dashed #f8efc9; transform: rotate(-13deg); }
+.ri-promo-road { position: absolute; left: 72%; top: -18px; height: 115px; width: 17px; border-radius: 999px; background: #fff9dd; transform: rotate(35deg); opacity: .7; }
+.ri-promo-sun { position: absolute; right: 22px; top: 13px; width: 18px; height: 18px; border-radius: 50%; background: #fff9da; }
+.ri-sidebar-promo p { margin: 0 0 8px; text-align: center; line-height: 1.4; font-weight: 700; font-size: 13px; color: #5e5231; }
+.ri-promo-caption { display: block; text-align: center; font-size: 8px; color: #8a7950; font-weight: 800; letter-spacing: .1em; }
+.ri-sidebar-bottom { display: flex; align-items: center; gap: 8px; padding: 14px 9px 2px; border-top: 1px solid var(--ri-border); color: #88806f; font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.ri-status-dot, .ri-live-dot { display: inline-block; width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: #6e9e67; box-shadow: 0 0 0 3px rgba(110,158,103,.13); }
+.ri-version { margin-left: auto; font-size: 10px; color: #b2a78e; letter-spacing: 0; }
+.ri-app-main { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.ri-topbar { position: sticky; top: 0; z-index: 1000; display: flex; gap: 18px; align-items: center; min-height: 73px; padding: 0 30px; background: rgba(255, 253, 247, .94); backdrop-filter: blur(16px); border-bottom: 1px solid var(--ri-border); }
+.ri-global-search { flex: 1; min-width: 130px; max-width: 550px; height: 41px; padding: 0 12px; display: flex; align-items: center; gap: 10px; border: 1px solid #ebe2ce; background: #fbf8ef; color: #817969; border-radius: 9px; }
+.ri-global-search input { flex: 1; width: 10px; border: 0; outline: 0; color: var(--ri-text); background: transparent; font-size: 12px; }
+.ri-global-search input::placeholder { color: #a39a89; }
+.ri-search-shortcut { border: 1px solid #e3dac4; background: #fffdf7; border-radius: 5px; font-size: 9px; padding: 3px 5px; color: #9b927f; }
+.ri-topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 13px; }
+.ri-theme-switch { padding: 3px; display: flex; align-items: center; gap: 2px; background: #f3eddd; border: 1px solid #e9dfc6; border-radius: 9px; }
+.ri-theme-switch button { display: inline-flex; width: 29px; height: 28px; border: 0; border-radius: 6px; align-items: center; justify-content: center; background: transparent; color: #837b68; }
+.ri-theme-switch button.selected { color: #39352a; background: #fffdfa; box-shadow: 0 1px 4px rgba(90,75,35,.13); }
+.ri-icon-button { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid transparent; background: transparent; color: #756e60; border-radius: 8px; }
+.ri-icon-button:hover { background: #fff4cf; border-color: #ecdfb9; }
+.ri-profile { display: flex; align-items: center; gap: 9px; padding-left: 13px; border-left: 1px solid var(--ri-border); min-width: 0; }
+.ri-avatar { width: 36px; height: 36px; flex: 0 0 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #e2d9c2; color: #51452d; font-size: 11px; font-weight: 800; }
+.ri-profile-copy { display: flex; flex-direction: column; min-width: 0; }
+.ri-profile-copy strong { max-width: 165px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ri-text); font-size: 12px; font-weight: 750; }
+.ri-profile-copy small { color: #938a78; font-size: 10px; }
+.ri-content { min-width: 0; width: 100%; max-width: 1780px; margin: 0 auto; padding: 27px 30px 22px; flex: 1; }
+.ri-page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 22px; margin-bottom: 22px; }
+.ri-eyebrow { display: flex; align-items: center; gap: 10px; color: #9e8332; font-size: 9px; line-height: 1.2; letter-spacing: .17em; font-weight: 850; }
+.ri-eyebrow-line { display: inline-block; width: 26px; border-top: 1px solid #d7b746; }
+.ri-page-heading h1 { margin: 8px 0 6px; color: var(--ri-text); letter-spacing: -.042em; line-height: 1.1; font-size: clamp(27px, 2.8vw, 36px); font-weight: 775; }
+.ri-page-heading p { margin: 0; color: var(--ri-muted); font-size: 12px; line-height: 1.65; }
+.ri-heading-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+.ri-primary-button, .ri-outline-button, .ri-small-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; border-radius: 9px; padding: 10px 14px; font-size: 11px; font-weight: 750; line-height: 1.2; white-space: nowrap; transition: .15s ease; }
+.ri-primary-button { background: var(--ri-yellow); color: #211d10; border-color: #e8ba2c; box-shadow: 0 2px 4px rgba(156,114,9,.1); }
+.ri-primary-button:hover { background: #f1bf23; transform: translateY(-1px); }
+.ri-outline-button { background: var(--ri-card); color: #5a5446; border-color: var(--ri-border-strong); }
+.ri-outline-button:hover { background: var(--ri-yellow-pale); border-color: #d8bc5d; }
+.ri-outline-button.danger { color: #a33f33; border-color: #e8c7c1; }
+.ri-small-button { padding: 7px 10px; border-color: var(--ri-border); color: #5e5645; background: #fffdf7; border-radius: 7px; font-size: 10px; }
+.ri-small-button:hover { background: var(--ri-yellow-pale); }
+.ri-small-button.primary { background: var(--ri-yellow); border-color: #e5b92f; color: #252014; }
+.ri-text-action { display: inline-flex; gap: 6px; align-items: center; border: 0; background: transparent; color: #8c6a09; font-size: 11px; font-weight: 760; }
+.ri-text-action:hover { color: #3a3013; }
+.ri-date-filter { display: inline-flex; align-items: center; gap: 8px; height: 39px; padding: 0 10px; border: 1px solid var(--ri-border); border-radius: 8px; background: var(--ri-card); color: #77705f; }
+.ri-date-filter select { appearance: none; background: transparent; border: 0; max-width: 115px; outline: 0; color: #5c5547; font-size: 10px; font-weight: 650; }
+.ri-stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 17px; }
+.ri-stat-card { display: flex; align-items: flex-start; gap: 13px; min-width: 0; padding: 17px 15px 16px; border: 1px solid var(--ri-border); border-radius: 13px; background: var(--ri-card); box-shadow: var(--ri-shadow); }
+.ri-stat-icon { width: 41px; height: 41px; flex: 0 0 41px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+.ri-stat-icon.gold { color: #a77c0a; background: #fff1b8; }
+.ri-stat-icon.green { color: #55825b; background: #e6f0df; }
+.ri-stat-icon.red { color: #b65c4f; background: #fae4df; }
+.ri-stat-icon.graphite { color: #555349; background: #ece9df; }
+.ri-stat-body { min-width: 0; display: flex; flex-direction: column; }
+.ri-stat-body p { margin: 0 0 5px; color: #756d5d; font-size: 11px; font-weight: 600; }
+.ri-stat-body strong { color: var(--ri-text); font-size: 27px; letter-spacing: -.045em; line-height: 1.15; font-weight: 790; }
+.ri-stat-body span { margin-top: 8px; color: #979080; font-size: 9px; line-height: 1.35; }
+.ri-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, .92fr); gap: 16px; align-items: start; }
+.ri-dashboard-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ri-panel { min-width: 0; padding: 17px; border: 1px solid var(--ri-border); border-radius: 13px; background: var(--ri-card); box-shadow: var(--ri-shadow); }
+.ri-panel-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-width: 0; margin-bottom: 15px; }
+.ri-panel-title-label { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.ri-icon-tile { display: inline-flex; flex: 0 0 31px; width: 31px; height: 31px; align-items: center; justify-content: center; border-radius: 8px; background: var(--ri-yellow-soft); color: #97710d; }
+.ri-panel-title h2 { margin: 0; color: var(--ri-text); font-size: 13px; font-weight: 780; letter-spacing: -.012em; }
+.ri-subtle-tag { border: 1px solid #eee4c9; border-radius: 999px; padding: 4px 7px; color: #94866a; background: #fffaf0; font-size: 8px; font-weight: 750; white-space: nowrap; }
+.ri-map-context { display: flex; align-items: center; gap: 9px; margin: -4px 0 11px 2px; color: #777060; font-size: 10px; }
+.ri-context-sep { color: #c4bba7; }
+.ri-map-preview { position: relative; height: 300px; overflow: hidden; border: 1px solid #d9dfd0; border-radius: 10px; background: #e3ecd8; }
+.ri-map-large-panel .ri-map-preview, .ri-map-large-panel .ri-large-map { height: min(66vh, 610px); min-height: 380px; }
+.ri-map-preview .map-container, .ri-large-map .map-container { width: 100%; height: 100%; }
+.ri-map-legend { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 12px; color: #827967; font-size: 9px; }
+.ri-map-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.ri-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.ri-legend-dot.legacy { background: #cc6457; }
+.ri-legend-dot.ai { background: #dcad23; }
+.ri-legend-dot.health { background: #63966b; }
+.ri-distribution { display: flex; gap: 15px; align-items: center; }
+.ri-donut-wrap { flex: 0 0 126px; display: flex; justify-content: center; }
+.ri-donut { display: flex; align-items: center; justify-content: center; width: 126px; height: 126px; border-radius: 50%; position: relative; }
+.ri-donut:before { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--ri-card); }
+.ri-donut > div { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ri-donut strong { color: var(--ri-text); font-size: 20px; line-height: 1.1; letter-spacing: -.04em; }
+.ri-donut span { margin-top: 4px; color: #938a78; font-size: 8px; line-height: 1.3; }
+.ri-class-legend { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ri-class-row { display: grid; grid-template-columns: 8px minmax(0,1fr) auto; gap: 7px; align-items: center; color: #777060; font-size: 9px; }
+.ri-class-row strong { color: #39352b; font-size: 10px; }
+.ri-class-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #d9b32f; }
+.ri-class-dot.c1 { background: #67976e; } .ri-class-dot.c2 { background: #bd6956; } .ri-class-dot.c3 { background: #8a897e; } .ri-class-dot.c4 { background: #718cb2; }
+.ri-trend-chart { display: flex; height: 126px; align-items: stretch; gap: 11px; padding: 8px 3px 0; }
+.ri-trend-chart.large { height: 210px; gap: 20px; }
+.ri-trend-column { min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #8c8371; font-size: 9px; }
+.ri-trend-track { width: 100%; flex: 1; display: flex; align-items: flex-end; justify-content: center; border-bottom: 1px solid #e8dfcb; background: repeating-linear-gradient(to top, transparent 0, transparent 29px, rgba(218,208,180,.22) 30px); }
+.ri-trend-bar { width: min(26px, 76%); min-height: 0; border-radius: 5px 5px 0 0; background: linear-gradient(180deg, #f9dc79, #e3ba34); transition: height .2s ease; }
+.ri-trend-column small { font-size: 8px; color: #8a826e; }
+.ri-health-rows { display: flex; flex-direction: column; gap: 10px; padding: 2px 0; }
+.ri-health-row { display: grid; grid-template-columns: 8px minmax(0,1fr) auto; gap: 8px; align-items: center; color: #706958; font-size: 10px; }
+.ri-health-row strong { color: #3c382e; }
+.ri-health-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #63966b; }
+.ri-health-dot.critical, .ri-health-dot.high { background: #c25b4e; }
+.ri-health-dot.warning, .ri-health-dot.medium, .ri-health-dot.uncertain { background: #dda927; }
+.ri-health-dot.caution, .ri-health-dot.low { background: #799bc1; }
+.ri-recent-panel { margin-top: 16px; }
+.ri-recent-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 11px; }
+.ri-recent-card { overflow: hidden; border: 1px solid #eee5d0; border-radius: 10px; background: #fffdf7; min-width: 0; }
+.ri-recent-thumb { height: 100px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; color: rgba(70,66,52,.25); background: linear-gradient(145deg,#e7e6d8 0%,#c5cbb6 54%,#969d7f 100%); }
+.ri-recent-thumb:before { content: ""; position: absolute; width: 150%; height: 30px; background: rgba(82,88,73,.36); transform: rotate(-15deg); border-block: 3px solid rgba(255,255,255,.35); }
+.ri-recent-thumb:after { content: ""; position: absolute; width: 150%; border-top: 2px dashed rgba(255,255,255,.85); transform: rotate(-15deg); }
+.ri-thumb-glyph { position: relative; z-index: 1; opacity: .72; color: #fdf8df; }
+.ri-damage-badge, .ri-confidence-chip { position: absolute; z-index: 2; top: 7px; padding: 4px 6px; border-radius: 5px; color: #fff; font-size: 8px; line-height: 1; font-weight: 800; box-shadow: 0 2px 5px rgba(0,0,0,.1); }
+.ri-damage-badge { left: 7px; max-width: 68%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #bd5d4e; }
+.ri-damage-badge.amber { background: #ba8b1d; } .ri-damage-badge.green { background: #507c58; } .ri-damage-badge.blue { background: #577a9c; }
+.ri-confidence-chip { right: 7px; background: rgba(38,38,32,.72); }
+.ri-recent-card-body { padding: 10px; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.ri-recent-card-body strong { color: #363127; font-size: 10px; }
+.ri-recent-card-body > span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #807766; font-size: 9px; }
+.ri-recent-card-body small { display: flex; align-items: center; gap: 4px; color: #978f7d; font-size: 8px; }
+.ri-empty-state { min-height: 125px; padding: 17px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 5px; }
+.ri-empty-icon { display: flex; width: 35px; height: 35px; align-items: center; justify-content: center; background: #fff5d0; color: #a68119; border-radius: 10px; margin-bottom: 3px; }
+.ri-empty-state strong { color: #433d30; font-size: 11px; }
+.ri-empty-state p { max-width: 330px; color: #8a8170; font-size: 10px; line-height: 1.5; margin: 0 0 5px; }
+.ri-empty-compact { padding: 13px 0; color: #968b75; font-size: 10px; }
+.ri-loading-line { padding: 17px 5px; color: #847a65; font-size: 11px; }
+.ri-loading-inline { display: inline-block; margin-top: 10px; color: #94876c; font-size: 10px; }
+.ri-inline-error, .ri-inline-notice { display: flex; align-items: flex-start; gap: 9px; padding: 10px 12px; margin: 0 0 14px; border-radius: 9px; font-size: 11px; line-height: 1.45; }
+.ri-inline-error { color: #a04338; border: 1px solid #ebc7bd; background: #fff0eb; }
+.ri-inline-notice { color: #507b52; border: 1px solid #cfdfc6; background: #f1f7e9; }
+.ri-inline-error span, .ri-inline-notice { min-width: 0; }
+.ri-link-button { margin-left: auto; background: transparent; border: 0; color: inherit; font-weight: 800; text-decoration: underline; white-space: nowrap; }
+.ri-mini-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 16px; }
+.ri-mini-stats > div { display: flex; flex-direction: column; gap: 6px; background: var(--ri-card); border: 1px solid var(--ri-border); border-radius: 10px; padding: 14px 15px; box-shadow: var(--ri-shadow); }
+.ri-mini-stats span { color: #8e836d; font-size: 10px; }
+.ri-mini-stats strong { color: var(--ri-text); font-size: 24px; letter-spacing: -.04em; line-height: 1.1; }
+.ri-map-view-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px,.7fr); gap: 15px; align-items: start; }
+.ri-map-large-panel .ri-panel-title { margin-bottom: 12px; }
+.ri-large-map { height: min(66vh, 610px); min-height: 380px; position: relative; border-radius: 10px; overflow: hidden; background: #e2ead7; border: 1px solid #d6dfce; }
+.ri-map-live-label { display: inline-flex; align-items: center; gap: 7px; font-size: 9px; color: #758263; border: 1px solid #dfe8d6; border-radius: 999px; background: #f5faee; padding: 5px 8px; }
+.ri-map-live-label i { display: block; width: 6px; height: 6px; border-radius: 50%; background: #63966b; }
+.ri-map-tools { display: flex; flex-direction: column; gap: 15px; min-width: 0; }
+.ri-current-location { display: flex; align-items: center; gap: 9px; margin: 12px 0; padding: 10px; border: 1px solid #eee3c9; border-radius: 8px; background: #fffaf0; color: #8b6a12; }
+.ri-current-location div { display: flex; min-width: 0; flex-direction: column; }
+.ri-current-location strong { color: #464031; font-size: 10px; }
+.ri-current-location span { color: #91846a; font-size: 9px; }
+.ri-full-button { width: 100%; margin-top: 9px; }
+.ri-toggle-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; }
+.ri-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 11px 2px; border: 0; border-bottom: 1px solid #f0e8d5; background: transparent; color: #655d4c; font-size: 10px; }
+.ri-toggle-row > span { display: flex; align-items: center; gap: 8px; }
+.ri-toggle-row > i { position: relative; width: 30px; height: 17px; border-radius: 999px; border: 1px solid #ddd3bb; background: #eee8d9; transition: .15s; }
+.ri-toggle-row > i:after { content: ""; position: absolute; width: 11px; height: 11px; left: 2px; top: 2px; background: white; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,.15); transition: .15s; }
+.ri-toggle-row.enabled > i { background: #ecc43d; border-color: #d6ae2c; }
+.ri-toggle-row.enabled > i:after { left: 15px; background: #5b4a18; }
+.ri-field-label { display: grid; gap: 6px; margin: 11px 0; color: #7c725e; font-size: 10px; font-weight: 700; }
+.ri-field-label select, .ri-review-form select, .ri-compact-select select { width: 100%; min-width: 0; padding: 9px 10px; border: 1px solid #e6dcc3; border-radius: 7px; background: #fffefa; color: #494335; outline: none; font-size: 11px; }
+.ri-field-label select:focus, .ri-review-form select:focus, .ri-gps-editor input:focus { border-color: #d5af2e; box-shadow: 0 0 0 3px rgba(235,198,67,.15); }
+.ri-upload-workspace { min-width: 0; }
+.ri-mode-tabs { display: flex; gap: 8px; padding: 5px; margin-bottom: 15px; border: 1px solid var(--ri-border); border-radius: 10px; background: #f7f0de; width: fit-content; max-width: 100%; }
+.ri-mode-tabs button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; padding: 10px 12px; border-radius: 7px; background: transparent; color: #7c725c; font-size: 11px; font-weight: 750; }
+.ri-mode-tabs button.selected { background: #fffefa; border-color: #e9dfc8; box-shadow: 0 1px 4px rgba(87,68,20,.08); color: #3d3522; }
+.ri-embedded-legacy { min-width: 0; }
+.ri-embedded-legacy .routiq-detection-page { max-width: none; padding: 0; margin: 0; color: var(--ri-text); }
+.ri-embedded-legacy .routiq-workspace-heading { display: none; }
+.ri-embedded-legacy .routiq-detection-grid > section,
+.ri-embedded-legacy .routiq-detection-page > section { background: var(--ri-card) !important; border: 1px solid var(--ri-border) !important; border-radius: 12px !important; box-shadow: var(--ri-shadow) !important; color: var(--ri-text) !important; }
+.ri-embedded-legacy .routiq-detection-grid h2,
+.ri-embedded-legacy .routiq-detection-page h2 { color: var(--ri-text) !important; }
+.ri-embedded-legacy .routiq-muted { color: var(--ri-muted) !important; }
+.ri-embedded-legacy .routiq-primary-button { background: var(--ri-yellow) !important; color: #2a2412 !important; border: 1px solid #e5b62e !important; }
+.ri-embedded-legacy .routiq-form-error { border-color: #edc8bf; background: #fff0ec; color: #a44439; }
+.ri-embedded-legacy .routiq-form-notice { border-color: #d8e7cd; background: #f2f7e9; color: #557d4f; }
+.ri-embedded-legacy .routiq-auth-shell { min-height: 420px; padding: 25px 10px; background: transparent; }
+.ri-embedded-legacy .routiq-auth-card { border-color: var(--ri-border); border-radius: 13px; box-shadow: var(--ri-shadow); }
+.ri-embedded-legacy .routiq-auth-switch { background: #f7f0de; }
+.ri-embedded-legacy .routiq-auth-switch button.selected { color: #7c600e; }
+.ri-embedded-legacy .routiq-auth-mark { background: var(--ri-yellow); color: #3a3014; box-shadow: none; }
+.ri-embedded-legacy .routiq-auth-form input { border-color: #e6dcc3 !important; background: #fffefa; }
+.ri-embedded-legacy .routiq-upload-shell { min-height: 0; background: transparent; }
+.ri-embedded-legacy .routiq-upload-header { display: none; }
+.ri-embedded-legacy .upload-page { background: transparent !important; padding: 0 !important; min-height: 0; font-family: inherit; }
+.ri-embedded-legacy .upload-container { max-width: none; border: 1px solid var(--ri-border); border-radius: 12px; box-shadow: var(--ri-shadow); }
+.ri-embedded-legacy .upload-header { background: #fff2b6 !important; color: #4e4019 !important; padding: 20px; }
+.ri-embedded-legacy .upload-header h1 { font-size: 21px; }
+.ri-embedded-legacy .upload-header p { font-size: 12px; }
+.ri-embedded-legacy .nav-button { position: static; margin-bottom: 12px; background: #fffdf8; color: #5f532f; border-color: #e8d9ad; }
+.ri-embedded-legacy .upload-form { padding: 22px; }
+.ri-embedded-legacy .file-input-section, .ri-embedded-legacy .settings-section { border-color: #e9dfc6; background: #fffdf7; }
+.ri-embedded-legacy .submit-button { background: var(--ri-yellow); color: #302713; }
+.ri-embedded-legacy input, .ri-embedded-legacy select, .ri-embedded-legacy textarea { accent-color: #d2a61c; }
+.ri-table-toolbar { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; margin-bottom: 14px; }
+.ri-table-toolbar > div > p { margin: -8px 0 0 41px; color: #918673; font-size: 10px; }
+.ri-table-actions { display: flex; align-items: end; flex-wrap: wrap; gap: 8px; }
+.ri-compact-select { display: flex; gap: 6px; align-items: center; color: #8b806c; font-size: 10px; }
+.ri-compact-select select { width: auto; min-width: 95px; padding: 8px; }
+.ri-table-wrap { overflow-x: auto; border: 1px solid #eee5d0; border-radius: 9px; }
+.ri-table { width: 100%; border-collapse: collapse; min-width: 780px; text-align: left; }
+.ri-table thead { background: #fbf6e8; }
+.ri-table th { padding: 11px 12px; color: #92856d; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; border-bottom: 1px solid var(--ri-border); }
+.ri-table td { padding: 13px 12px; border-bottom: 1px solid #f0e8d7; color: #625c4f; font-size: 10px; vertical-align: middle; }
+.ri-table tr:last-child td { border-bottom: 0; }
+.ri-table tbody tr:hover { background: #fffcf1; }
+.ri-table td > strong { display: block; color: #3e392e; font-weight: 750; }
+.ri-table td small { display: block; margin-top: 3px; font-size: 9px; color: #968b76; }
+.ri-table-id { display: inline-block; margin-right: 6px; padding: 3px 5px; border-radius: 4px; background: #fff0b6; color: #88680c; font-size: 8px; font-weight: 800; }
+.ri-location-name { display: block; min-width: 130px; color: #4c4638; }
+.ri-pill, .ri-status-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 4px 8px; font-size: 9px; font-weight: 750; white-space: nowrap; background: #eee9dc; color: #77705f; }
+.ri-pill.critical, .ri-pill.high, .ri-status-pill.uncertain { background: #f9e4de; color: #a44c40; }
+.ri-pill.medium, .ri-status-pill.in_progress, .ri-status-pill.review_required { background: #fff0bf; color: #8e6c13; }
+.ri-pill.low, .ri-status-pill.fixed, .ri-status-pill.verified, .ri-status-pill.good { background: #e6f0df; color: #537c4f; }
+.ri-status-pill.reported { background: #eee9dc; color: #746b58; }
+.ri-status-pill.closed { background: #e6e7e3; color: #666961; }
+.ri-review-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(290px,.8fr); align-items: start; gap: 15px; margin-bottom: 15px; }
+.ri-muted { color: #847a68; font-size: 11px; line-height: 1.55; }
+.ri-review-form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.ri-review-result { padding: 14px; margin-top: 15px; border: 1px solid #d4e1c7; border-radius: 10px; background: #f5f8eb; color: #4c6645; }
+.ri-review-result.abstained { background: #fff7df; border-color: #e9d89b; color: #776024; }
+.ri-result-heading { display: flex; align-items: center; gap: 10px; }
+.ri-result-icon { display: flex; width: 35px; height: 35px; align-items: center; justify-content: center; background: rgba(115,147,74,.14); border-radius: 9px; }
+.ri-result-heading small { font-size: 8px; font-weight: 850; letter-spacing: .12em; }
+.ri-result-heading h3 { margin: 2px 0 0; font-size: 15px; }
+.ri-result-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; margin: 14px 0; }
+.ri-result-metrics > div { padding: 9px; border: 1px solid rgba(142,166,107,.25); border-radius: 7px; background: rgba(255,255,255,.45); }
+.ri-result-metrics span { display: block; font-size: 9px; opacity: .8; }
+.ri-result-metrics strong { display: block; margin-top: 4px; font-size: 12px; }
+.ri-quality-row { display: flex; flex-wrap: wrap; gap: 12px; font-size: 10px; }
+.ri-reason-list { padding-left: 17px; font-size: 10px; }
+.ri-research-warning { margin: 12px 0 0; font-size: 10px; line-height: 1.55; }
+.ri-quality-summary { display: flex; flex-direction: column; gap: 0; }
+.ri-quality-summary > div { display: grid; grid-template-columns: 10px minmax(0,1fr) auto; gap: 9px; align-items: start; padding: 12px 0; border-bottom: 1px solid #f0e8d7; }
+.ri-quality-summary > div:last-child { border-bottom: 0; }
+.ri-quality-summary strong { display: block; color: #4d473a; font-size: 10px; }
+.ri-quality-summary small { display: block; margin-top: 3px; color: #918774; font-size: 9px; line-height: 1.4; }
+.ri-quality-summary b { color: #6e612f; font-size: 10px; }
+.ri-quality-bullet { display: block; width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; background: #6b986b; }
+.ri-quality-bullet.photo { background: #bd9a35; } .ri-quality-bullet.review { background: #b96556; }
+.ri-export-card { margin-top: 15px; padding: 12px; background: #fff9e7; border: 1px solid #eee2bd; border-radius: 9px; }
+.ri-export-card > strong { color: #4d4328; font-size: 10px; }
+.ri-export-card p { color: #897e66; font-size: 9px; margin: 4px 0 10px; }
+.ri-button-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.ri-gps-editor { display: flex; flex-direction: column; gap: 5px; min-width: 135px; }
+.ri-gps-editor input { width: 100%; min-width: 100px; padding: 6px; border: 1px solid #e6dcc3; border-radius: 6px; background: #fffefa; font-size: 10px; }
+.ri-coordinate-cell { display: flex; flex-direction: column; gap: 6px; min-width: 120px; }
+.ri-confidence-meter { width: 80px; max-width: 100%; height: 5px; margin-bottom: 4px; border-radius: 99px; background: #eee8d9; overflow: hidden; }
+.ri-confidence-meter span { display: block; height: 100%; border-radius: inherit; background: #ddba3c; }
+.ri-footnote { margin: 12px 0 0; color: #918775; font-size: 10px; line-height: 1.5; }
+.ri-analytics-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 15px; }
+.ri-bar-list { display: flex; flex-direction: column; gap: 17px; padding: 5px 2px 8px; }
+.ri-bar-item > div:first-child { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; color: #766b57; font-size: 10px; }
+.ri-bar-item strong { color: #383326; }
+.ri-bar-track { overflow: hidden; height: 8px; border-radius: 999px; background: #f0eadb; }
+.ri-bar-track i { display: block; height: 100%; border-radius: 999px; background: #e6bd34; }
+.ri-bar-track i.c1 { background: #76a278; } .ri-bar-track i.c2 { background: #c77966; } .ri-bar-track i.c3 { background: #8c9085; } .ri-bar-track i.c4 { background: #7993b5; }
+.ri-method-note { margin-top: 15px; }
+.ri-method-note > p { margin: 0; max-width: 980px; font-size: 11px; line-height: 1.7; color: #7c725f; }
+.ri-settings-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.ri-setting-row { display: flex; flex-direction: column; gap: 5px; padding: 13px; border: 1px solid #eee5d0; background: #fffdf7; border-radius: 9px; }
+.ri-setting-row > span { color: #958972; font-size: 9px; letter-spacing: .07em; text-transform: uppercase; font-weight: 800; }
+.ri-setting-row > strong { color: #494233; font-size: 11px; line-height: 1.45; }
+.ri-setting-row > small { color: #918774; font-size: 9px; line-height: 1.5; }
+.ri-service-list { display: flex; flex-direction: column; }
+.ri-service-row { display: grid; grid-template-columns: 9px minmax(0,1fr) auto; gap: 10px; align-items: start; padding: 13px 0; border-bottom: 1px solid #f0e8d7; }
+.ri-service-row:last-child { border-bottom: 0; }
+.ri-service-indicator { width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; background: #d6a332; }
+.ri-service-indicator.healthy { background: #719c65; }
+.ri-service-indicator.unknown { background: #aaa18c; }
+.ri-service-row strong { display: block; color: #4d4638; font-size: 10px; }
+.ri-service-row small { display: block; color: #968a74; margin-top: 3px; font-size: 9px; line-height: 1.45; }
+.ri-service-row > b { color: #8a7a56; font-size: 9px; white-space: nowrap; }
+.ri-footer { display: flex; align-items: center; gap: 10px; margin-top: 23px; padding: 16px 3px 3px; border-top: 1px solid var(--ri-border); color: #a09682; font-size: 9px; }
+.ri-footer span:first-child { color: #76602a; font-weight: 850; }
+.ri-footer span:last-child { margin-left: auto; }
+.ri-mobile-menu, .ri-mobile-close { display: none; }
+.ri-sidebar-backdrop { display: none; }
+.ri-dark {
+  --ri-bg: #191813;
+  --ri-card: #24221b;
+  --ri-sidebar: #201e18;
+  --ri-text: #f6f0df;
+  --ri-muted: #b3a890;
+  --ri-border: #403a2a;
+  --ri-border-strong: #5b5038;
+  --ri-yellow-soft: #3c341c;
+  --ri-yellow-pale: #302b1d;
+  --ri-shadow: 0 7px 20px rgba(0,0,0,.14);
+  color: var(--ri-text);
+}
+.ri-dark .ri-topbar { background: rgba(32,30,24,.94); }
+.ri-dark .ri-global-search, .ri-dark .ri-theme-switch, .ri-dark .ri-date-filter,
+.ri-dark .ri-field-label select, .ri-dark .ri-review-form select, .ri-dark .ri-compact-select select { background: #2b281f; border-color: #4a4130; color: #ede4cb; }
+.ri-dark .ri-global-search input, .ri-dark .ri-profile-copy strong, .ri-dark .ri-nav-item, .ri-dark .ri-panel-title h2,
+.ri-dark .ri-stat-body strong, .ri-dark .ri-mini-stats strong, .ri-dark .ri-table td > strong,
+.ri-dark .ri-class-row strong, .ri-dark .ri-health-row strong, .ri-dark .ri-recent-card-body strong { color: var(--ri-text); }
+.ri-dark .ri-nav-item { color: #c1b7a0; }
+.ri-dark .ri-nav-item.active { color: #faedc5; }
+.ri-dark .ri-recent-card, .ri-dark .ri-setting-row, .ri-dark .ri-table thead, .ri-dark .ri-export-card { background: #29261e; border-color: #49402d; }
+.ri-dark .ri-table td, .ri-dark .ri-table th, .ri-dark .ri-quality-summary > div, .ri-dark .ri-service-row { border-color: #413a2b; }
+.ri-dark .ri-table tbody tr:hover { background: #2b281f; }
+.ri-dark .ri-map-preview, .ri-dark .ri-large-map { border-color: #4a4935; }
+.ri-dark .ri-current-location { background: #302b1d; border-color: #4c422a; }
+.ri-dark .ri-current-location strong, .ri-dark .ri-setting-row > strong, .ri-dark .ri-quality-summary strong, .ri-dark .ri-service-row strong { color: #f0e5c8; }
+.ri-dark .ri-donut:before { background: var(--ri-card); }
+.ri-dark .ri-empty-state strong { color: #e9dec2; }
+.ri-dark .ri-embedded-legacy .routiq-detection-grid > section,
+.ri-dark .ri-embedded-legacy .routiq-detection-page > section { background: var(--ri-card) !important; border-color: var(--ri-border) !important; }
+.ri-dark .ri-embedded-legacy .routiq-detection-grid h2, .ri-dark .ri-embedded-legacy .routiq-detection-page h2 { color: var(--ri-text) !important; }
+.ri-dark .ri-embedded-legacy .routiq-auth-card { background: var(--ri-card); }
+.ri-dark .ri-embedded-legacy .routiq-auth-card h2 { color: var(--ri-text); }
+.ri-dark .ri-embedded-legacy .routiq-auth-form label { color: #d5cbb3; }
+.ri-dark .ri-embedded-legacy .routiq-auth-card input { color: #26241d; }
+.ri-dark .ri-embedded-legacy .upload-container { background: var(--ri-card); }
+.ri-dark .ri-embedded-legacy .file-input-section, .ri-dark .ri-embedded-legacy .settings-section { background: #2c291f; border-color: #49402d; }
+@media (max-width: 1230px) {
+  .ri-sidebar { width: 230px; flex-basis: 230px; }
+  .ri-content { padding: 23px 20px; }
+  .ri-topbar { padding: 0 20px; }
+  .ri-stats-grid { gap: 10px; }
+  .ri-stat-card { padding: 14px 12px; gap: 10px; }
+  .ri-stat-icon { width: 36px; height: 36px; flex-basis: 36px; }
+  .ri-stat-body strong { font-size: 24px; }
+}
+@media (max-width: 1000px) {
+  .ri-dashboard-grid, .ri-map-view-grid { grid-template-columns: minmax(0,1fr); }
+  .ri-dashboard-side { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: stretch; }
+  .ri-dashboard-side > .ri-panel:last-child { grid-column: span 2; }
+  .ri-recent-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .ri-stats-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ri-profile-copy { display: none; }
+}
+@media (max-width: 760px) {
+  .ri-sidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); transition: transform .2s ease; width: min(280px,86vw); flex-basis: auto; height: 100dvh; }
+  .ri-sidebar.is-open { transform: translateX(0); }
+  .ri-mobile-close { display: inline-flex; position: absolute; top: 17px; right: 12px; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--ri-border); border-radius: 8px; background: var(--ri-card); color: var(--ri-muted); }
+  .ri-sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 1100; border: 0; background: rgba(25,24,19,.33); }
+  .ri-mobile-menu { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid var(--ri-border); border-radius: 8px; background: var(--ri-card); color: var(--ri-muted); }
+  .ri-topbar { min-height: 62px; gap: 10px; padding: 0 12px; }
+  .ri-global-search { padding: 0 9px; height: 37px; }
+  .ri-global-search input { font-size: 11px; }
+  .ri-search-shortcut { display: none; }
+  .ri-topbar-actions { gap: 5px; }
+  .ri-theme-switch button { width: 26px; height: 26px; }
+  .ri-profile { padding-left: 7px; gap: 0; border-left: 0; }
+  .ri-profile-copy, .ri-profile > svg { display: none; }
+  .ri-avatar { width: 31px; height: 31px; flex-basis: 31px; }
+  .ri-content { padding: 19px 12px; }
+  .ri-page-heading { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .ri-heading-actions { width: 100%; justify-content: space-between; }
+  .ri-stats-grid, .ri-mini-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ri-stat-card { padding: 12px 10px; }
+  .ri-stat-icon { width: 32px; height: 32px; flex-basis: 32px; border-radius: 8px; }
+  .ri-stat-body p { font-size: 10px; }
+  .ri-stat-body strong { font-size: 21px; }
+  .ri-stat-body span { font-size: 8px; margin-top: 5px; }
+  .ri-dashboard-side { grid-template-columns: minmax(0,1fr); }
+  .ri-dashboard-side > .ri-panel:last-child { grid-column: auto; }
+  .ri-recent-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ri-panel { padding: 13px; }
+  .ri-map-preview { height: 275px; }
+  .ri-map-large-panel .ri-large-map, .ri-large-map { height: 52vh; min-height: 320px; }
+  .ri-review-grid, .ri-analytics-grid, .ri-settings-grid { grid-template-columns: minmax(0,1fr); }
+  .ri-table-toolbar { align-items: flex-start; flex-direction: column; }
+  .ri-table-actions { width: 100%; }
+  .ri-compact-select { flex: 1; }
+  .ri-result-metrics { grid-template-columns: minmax(0,1fr); }
+  .ri-footer { flex-wrap: wrap; gap: 7px; }
+  .ri-footer span:last-child { margin-left: 0; width: 100%; }
+  .ri-mode-tabs { width: 100%; }
+  .ri-mode-tabs button { flex: 1; justify-content: center; padding: 9px 7px; font-size: 10px; }
+  .ri-embedded-legacy .routiq-detection-grid { grid-template-columns: minmax(0,1fr); }
+}
+
+.ri-date-range-fields { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 8px; margin-top: 7px; }
+.ri-date-range-fields .ri-field-label { min-width: 0; }
+.ri-date-range-fields input { min-width: 0; width: 100%; padding: 8px 7px; border: 1px solid #e6dcc3; border-radius: 7px; background: #fffefa; color: #534b3b; font-size: 10px; }
+.ri-clear-date { grid-column: 1 / -1; justify-self: start; margin: 0 0 7px; padding: 0; }
+.ri-dark .ri-date-range-fields input { background: #2b281f; border-color: #4a4130; color: #ede4cb; }
+@media (max-width: 760px) {
+  .ri-date-range-fields { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+}
+
+/* RoutIQ interaction reliability: keep the active application shell interactive. */
+.routiq-final-root {
+  position: relative;
+  isolation: isolate;
+}
+
+.routiq-final-root .ri-sidebar,
+.routiq-final-root .ri-app-main,
+.routiq-final-root .ri-topbar,
+.routiq-final-root .ri-nav-item,
+.routiq-final-root .ri-topbar-actions button,
+.routiq-final-root .ri-heading-actions button {
+  pointer-events: auto;
+}
+
+.routiq-final-root .ri-sidebar {
+  z-index: 20;
+}
+
+.routiq-final-root .ri-app-main {
+  min-width: 0;
+}
+
+.routiq-final-root .ri-nav-item:disabled,
+.routiq-final-root button:disabled {
+  pointer-events: none;
+}
+
+/* RoutIQ clickable menu controls */
+.ri-profile-wrap,
+.ri-date-filter-wrap {
+  position: relative;
+  z-index: 1300;
+}
+
+.ri-profile-trigger {
+  appearance: none;
+  border: 0;
+  border-left: 1px solid var(--ri-border);
+  background: transparent;
+  color: var(--ri-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ri-profile-menu,
+.ri-date-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1500;
+  padding: 7px;
+  border: 1px solid var(--ri-border);
+  border-radius: 12px;
+  background: var(--ri-card);
+  box-shadow: 0 12px 32px rgba(48, 40, 22, 0.16);
+}
+
+.ri-profile-menu {
+  width: min(280px, calc(100vw - 28px));
+}
+
+.ri-profile-menu-account {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 11px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--ri-border);
+  overflow-wrap: anywhere;
+}
+
+.ri-profile-menu-account strong {
+  color: var(--ri-text);
+  font-size: 12px;
+}
+
+.ri-profile-menu-account small {
+  color: var(--ri-muted);
+  font-size: 10px;
+}
+
+.ri-profile-menu button,
+.ri-date-menu button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ri-text);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ri-profile-menu button:hover,
+.ri-date-menu button:hover,
+.ri-date-menu button.selected {
+  background: var(--ri-bg);
+}
+
+.ri-date-filter-wrap {
+  z-index: 1301;
+}
+
+button.ri-date-filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font: inherit;
+  color: var(--ri-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ri-date-menu {
+  min-width: 160px;
+}
+
+.ri-date-menu button.selected {
+  font-weight: 750;
+}
+
+.ri-profile-trigger:focus-visible,
+button.ri-date-filter:focus-visible,
+.ri-profile-menu button:focus-visible,
+.ri-date-menu button:focus-visible {
+  outline: 2px solid var(--ri-yellow);
+  outline-offset: 2px;
+}
+
+/* RoutIQ popup stacking fix v2 */
+.routiq-final-root .ri-content {
+  isolation: isolate;
+}
+
+.routiq-final-root .ri-topbar {
+  z-index: 1000;
+}
+
+.routiq-final-root .ri-profile-wrap {
+  position: relative;
+  z-index: 1500;
+}
+
+.routiq-final-root .ri-profile-menu {
+  z-index: 1600;
+}
+
+.routiq-final-root .ri-date-filter-wrap {
+  position: relative;
+  z-index: 10;
+}
+
+.routiq-final-root .ri-date-menu {
+  z-index: 20;
+}
+/* RoutIQ dashboard map controls v1 */
+.routiq-final-root .ri-dashboard-map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.routiq-final-root .ri-dashboard-map-mode {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--ri-border);
+  border-radius: 10px;
+  background: var(--ri-bg);
+}
+
+.routiq-final-root .ri-dashboard-map-mode button,
+.routiq-final-root .ri-dashboard-layer-toggle,
+.routiq-final-root .ri-dashboard-map-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid var(--ri-border);
+  border-radius: 8px;
+  background: var(--ri-card);
+  color: var(--ri-text);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-dashboard-map-mode button {
+  border-color: transparent;
+  background: transparent;
+}
+
+.routiq-final-root .ri-dashboard-map-mode button.active,
+.routiq-final-root .ri-dashboard-layer-toggle.active {
+  background: var(--ri-yellow);
+  border-color: #e3bd39;
+  color: #39321c;
+}
+
+.routiq-final-root .ri-dashboard-map-action:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.routiq-final-root .ri-map-preview {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.routiq-final-root .ri-map-preview .map-container,
+.routiq-final-root .ri-map-preview .leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+}
+
+@media (max-width: 640px) {
+  .routiq-final-root .ri-map-preview {
+    height: 280px;
+  }
+  .routiq-final-root .ri-dashboard-map-toolbar {
+    align-items: stretch;
+  }
+}
+/* RoutIQ global search suggestions v1 */
+.routiq-final-root .ri-global-search-wrap {
+  position: relative;
+  z-index: 1800;
+  flex: 1 1 300px;
+  min-width: 130px;
+  max-width: 550px;
+}
+
+.routiq-final-root .ri-global-search {
+  width: 100%;
+  max-width: none;
+}
+
+.routiq-final-root .ri-search-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 7px;
+  border: 1px solid var(--ri-border);
+  border-radius: 6px;
+  background: var(--ri-card);
+  color: var(--ri-muted);
+  font-size: 10px;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.routiq-final-root .ri-global-search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 2200;
+  max-height: min(360px, 65vh);
+  overflow-y: auto;
+  padding: 7px;
+  border: 1px solid var(--ri-border);
+  border-radius: 12px;
+  background: var(--ri-card);
+  box-shadow: 0 14px 36px rgba(45, 36, 18, .18);
+}
+
+.routiq-final-root .ri-global-search-caption {
+  padding: 8px 10px 6px;
+  color: var(--ri-muted);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.routiq-final-root .ri-global-search-results button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ri-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-global-search-results button:hover {
+  background: var(--ri-bg);
+}
+
+.routiq-final-root .ri-global-search-place {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.routiq-final-root .ri-global-search-place strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.routiq-final-root .ri-global-search-place small {
+  color: var(--ri-muted);
+  font-size: 10px;
+}
+
+.routiq-final-root .ri-global-search-empty {
+  margin: 0;
+  padding: 10px;
+  color: var(--ri-muted);
+  font-size: 11px;
+}
+
+.routiq-final-root .ri-global-search-results .ri-global-search-report-action {
+  margin-top: 5px;
+  border-top: 1px solid var(--ri-border);
+  border-radius: 0 0 8px 8px;
+  color: var(--ri-muted);
+  font-size: 11px;
+}
+
+.routiq-final-root .ri-dashboard-layer-toggle:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+  .routiq-final-root .ri-global-search-wrap {
+    min-width: 0;
+    max-width: none;
+  }
+}
+/* RoutIQ search clear button and nearby results v1 */
+.routiq-final-root .ri-global-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.routiq-final-root .ri-global-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.routiq-final-root .ri-global-search-clear {
+  display: inline-flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--ri-border);
+  border-radius: 7px;
+  background: var(--ri-card);
+  color: var(--ri-muted);
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-global-search-clear:hover {
+  background: var(--ri-bg);
+  color: var(--ri-text);
+}
+
+.routiq-final-root .ri-global-search-clear:focus-visible {
+  outline: 2px solid var(--ri-yellow);
+  outline-offset: 2px;
+}
+/* RoutIQ auth gate and upload skeleton v1 */
+.routiq-final-root .ri-auth-gate {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: clamp(16px, 4vw, 48px);
+  background: var(--ri-bg);
+}
+
+.routiq-final-root .ri-auth-gate > * {
+  width: min(100%, 980px);
+}
+
+.routiq-final-root .ri-upload-skeleton {
+  display: grid;
+  gap: 18px;
+  min-height: 340px;
+  padding: clamp(16px, 3vw, 28px);
+  border: 1px solid var(--ri-border);
+  border-radius: 14px;
+  background: var(--ri-card);
+}
+
+.routiq-final-root .ri-skeleton-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.routiq-final-root .ri-skeleton-title-group {
+  display: grid;
+  flex: 1;
+  gap: 8px;
+}
+
+.routiq-final-root .ri-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.routiq-final-root .ri-skeleton-card {
+  display: grid;
+  align-content: start;
+  gap: 13px;
+  padding: 16px;
+  border: 1px solid var(--ri-border);
+  border-radius: 12px;
+}
+
+.routiq-final-root .ri-skeleton-block {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(
+    100deg,
+    var(--ri-bg) 20%,
+    var(--ri-border) 45%,
+    var(--ri-bg) 70%
+  );
+  background-size: 220% 100%;
+  animation: ri-skeleton-shimmer 1.25s ease-in-out infinite;
+}
+
+.routiq-final-root .ri-skeleton-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.routiq-final-root .ri-skeleton-line {
+  width: 100%;
+  height: 12px;
+}
+
+.routiq-final-root .ri-skeleton-line.medium {
+  width: 58%;
+  height: 14px;
+}
+
+.routiq-final-root .ri-skeleton-line.short {
+  width: 34%;
+}
+
+.routiq-final-root .ri-skeleton-preview {
+  width: 100%;
+  min-height: 112px;
+  border-radius: 10px;
+}
+
+.routiq-final-root .ri-skeleton-input {
+  width: 100%;
+  height: 38px;
+  border-radius: 8px;
+}
+
+.routiq-final-root .ri-skeleton-action {
+  width: 44%;
+  height: 36px;
+  margin-top: 5px;
+  border-radius: 8px;
+}
+
+.routiq-final-root .ri-skeleton-strip {
+  width: 100%;
+  height: 44px;
+  border-radius: 9px;
+}
+
+@keyframes ri-skeleton-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (max-width: 640px) {
+  .routiq-final-root .ri-skeleton-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routiq-final-root .ri-skeleton-block {
+    animation: none;
+  }
+}
+/* RoutIQ final split auth design v1 */
+.routiq-final-root .ri-auth-landing {
+  --auth-ink: #20232b;
+  --auth-muted: #707781;
+  --auth-line: #e8ddc6;
+  --auth-gold: #f6bd25;
+  --auth-gold-soft: #fff0b5;
+  display: grid;
+  grid-template-columns: minmax(190px, .62fr) minmax(400px, 1.12fr) minmax(430px, 1.42fr);
+  gap: 14px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 14px;
+  background: #fffaf0;
+  color: var(--auth-ink);
+  overflow: hidden;
+}
+
+.routiq-final-root .ri-auth-brand-rail,
+.routiq-final-root .ri-auth-showcase {
+  min-width: 0;
+  border: 1px solid #f0e6d3;
+  border-radius: 18px;
+  background: rgba(255, 254, 249, .92);
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 28px);
+  padding: 24px 18px 0;
+  overflow: hidden;
+}
+
+.routiq-final-root .ri-auth-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.routiq-final-root .ri-auth-roadmark {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 45px;
+}
+
+.routiq-final-root .ri-auth-roadmark i,
+.routiq-final-root .ri-auth-roadmark b {
+  position: absolute;
+  bottom: 3px;
+  display: block;
+  height: 38px;
+  border-radius: 17px 17px 5px 5px;
+  transform: skewX(-15deg);
+}
+
+.routiq-final-root .ri-auth-roadmark i {
+  left: 3px;
+  width: 20px;
+  background: #f7c52f;
+}
+
+.routiq-final-root .ri-auth-roadmark b {
+  left: 19px;
+  width: 17px;
+  background: #292d32;
+}
+
+.routiq-final-root .ri-auth-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.routiq-final-root .ri-auth-wordmark strong {
+  color: #181b20;
+  font-size: clamp(23px, 1.7vw, 30px);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -.055em;
+}
+
+.routiq-final-root .ri-auth-wordmark strong span {
+  color: #d5a10b;
+}
+
+.routiq-final-root .ri-auth-wordmark small {
+  color: #77766e;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.65;
+  letter-spacing: .15em;
+}
+
+.routiq-final-root .ri-auth-rail-divider {
+  height: 1px;
+  margin: 24px 0 22px;
+  background: #e8dfce;
+}
+
+.routiq-final-root .ri-auth-benefits {
+  display: grid;
+  gap: clamp(19px, 3vh, 34px);
+  position: relative;
+  z-index: 1;
+}
+
+.routiq-final-root .ri-auth-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.routiq-final-root .ri-auth-benefit-icon {
+  display: inline-flex;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff0bd;
+  color: #88650b;
+}
+
+.routiq-final-root .ri-auth-benefit strong {
+  display: block;
+  padding-top: 2px;
+  color: #24262a;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.routiq-final-root .ri-auth-benefit p {
+  margin: 4px 0 0;
+  color: #77766f;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.routiq-final-root .ri-auth-landscape {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(115px, 21vh, 210px);
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,250,240,0), #fff0be 95%);
+}
+
+.routiq-final-root .ri-auth-landscape-sun {
+  position: absolute;
+  right: 17%;
+  bottom: 42%;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffe28a;
+}
+
+.routiq-final-root .ri-auth-hill {
+  position: absolute;
+  bottom: 34px;
+  width: 115%;
+  height: 58%;
+  border-radius: 50% 50% 0 0;
+}
+
+.routiq-final-root .ri-auth-hill-one {
+  left: -37%;
+  background: #d8dfbc;
+  transform: rotate(-8deg);
+}
+
+.routiq-final-root .ri-auth-hill-two {
+  right: -45%;
+  bottom: 18px;
+  height: 66%;
+  background: #b4c39a;
+  transform: rotate(8deg);
+}
+
+.routiq-final-root .ri-auth-curved-road {
+  position: absolute;
+  left: -23%;
+  bottom: -79px;
+  width: 130%;
+  height: 130px;
+  border: 25px solid #4d514c;
+  border-bottom: 0;
+  border-radius: 52% 48% 0 0;
+  transform: rotate(-15deg);
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.35);
+}
+
+.routiq-final-root .ri-auth-road-dashes {
+  position: absolute;
+  left: -20%;
+  bottom: -61px;
+  width: 128%;
+  border-top: 2px dashed #fff5cf;
+  transform: rotate(-15deg);
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 7px 0;
+}
+
+.routiq-final-root .ri-auth-form-frame {
+  width: 100%;
+  max-width: 570px;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #20232b !important;
+  background: transparent !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div:has(.routiq-auth-form) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: clamp(21px, 2.1vw, 31px) !important;
+  border: 1px solid #eee3d0 !important;
+  border-radius: 19px !important;
+  background: #fffefa !important;
+  box-shadow: 0 14px 40px rgba(78, 62, 26, .07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-mark {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 17px 0;
+  padding: 4px;
+  border: 1px solid #eee4d0;
+  border-radius: 11px;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button {
+  min-height: 39px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #65645e;
+  font-weight: 650;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f3d77a;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 2px 5px rgba(127, 98, 22, .07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  color: #292b30;
+  font-weight: 750;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  min-height: 42px;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 9px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input:focus {
+  border-color: #d9a90d !important;
+  outline: 3px solid rgba(246, 189, 37, .2);
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"] {
+  min-height: 45px;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #ffd34d, #f3b916) !important;
+  color: #201c12 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 7px 15px rgba(204, 153, 14, .12) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"]:hover {
+  filter: brightness(.98);
+  transform: translateY(-1px);
+}
+
+.routiq-final-root .ri-auth-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: clamp(16px, 1.7vw, 26px);
+  background:
+    radial-gradient(ellipse at 88% 10%, rgba(255,229,157,.32), transparent 36%),
+    #fffdf6;
+  overflow: hidden;
+}
+
+.routiq-final-root .ri-auth-showcase-heading {
+  padding: 3px 3px 0;
+}
+
+.routiq-final-root .ri-auth-eyebrow {
+  display: inline-block;
+  margin-bottom: 9px;
+  color: #7a8a54;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  margin: 0;
+  color: #20232b;
+  font-size: clamp(21px, 1.8vw, 31px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -.04em;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  max-width: 530px;
+  margin: 11px 0 0;
+  color: #6b7078;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.routiq-final-root .ri-auth-map-preview {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #343b45;
+  border-radius: 13px;
+  background: #171c25;
+  box-shadow: 0 10px 24px rgba(38, 39, 34, .13);
+}
+
+.routiq-final-root .ri-auth-map-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 41px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.11);
+  background: rgba(17,21,29,.96);
+}
+
+.routiq-final-root .ri-auth-mini-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff9e6;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.routiq-final-root .ri-auth-mini-mark {
+  display: inline-block;
+  width: 13px;
+  height: 18px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(110deg, #ffca2d 0 45%, #fff3c5 46% 56%, #373c41 57%);
+  transform: skewX(-13deg);
+}
+
+.routiq-final-root .ri-auth-map-pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.routiq-final-root .ri-auth-map-pills span {
+  padding: 5px 8px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: #e1e2e4;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.routiq-final-root .ri-auth-map-pills span.selected {
+  border-color: #e1b92d;
+  background: #f5c52f;
+  color: #272315;
+  font-weight: 800;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  position: relative;
+  height: clamp(220px, 29vh, 315px);
+  overflow: hidden;
+  background-color: #1b2029;
+  background-image:
+    repeating-linear-gradient(24deg, transparent 0 20px, rgba(204,214,222,.09) 21px 22px, transparent 23px 44px),
+    repeating-linear-gradient(112deg, transparent 0 26px, rgba(204,214,222,.075) 27px 28px, transparent 29px 52px),
+    repeating-linear-gradient(74deg, transparent 0 67px, rgba(204,214,222,.055) 68px 71px, transparent 72px 104px),
+    radial-gradient(ellipse at 28% 20%, rgba(77,98,104,.18), transparent 42%);
+}
+
+.routiq-final-root .ri-auth-map-surface::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    linear-gradient(31deg, transparent 47.5%, rgba(80,169,111,.9) 47.7% 48.2%, transparent 48.4%),
+    linear-gradient(151deg, transparent 42%, rgba(219,176,50,.97) 42.2% 42.8%, transparent 43%),
+    linear-gradient(69deg, transparent 63%, rgba(213,81,72,.95) 63.2% 63.8%, transparent 64%);
+  opacity: .92;
+}
+
+.routiq-final-root .ri-auth-map-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 48% 50%, transparent 10%, rgba(9,12,19,.04) 65%, rgba(9,12,19,.27));
+  pointer-events: none;
+}
+
+.routiq-final-root .ri-auth-map-label {
+  position: absolute;
+  z-index: 1;
+  color: rgba(231,235,237,.54);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.routiq-final-root .ri-auth-map-label.label-one { top: 23%; left: 39%; }
+.routiq-final-root .ri-auth-map-label.label-two { top: 67%; left: 12%; }
+.routiq-final-root .ri-auth-map-label.label-three { top: 74%; right: 7%; }
+
+.routiq-final-root .ri-auth-map-route {
+  position: absolute;
+  z-index: 1;
+  height: 3px;
+  border-radius: 999px;
+  transform-origin: left center;
+  box-shadow: 0 0 0 2px rgba(20,24,30,.5);
+}
+
+.routiq-final-root .ri-auth-map-route.route-yellow {
+  top: 56%;
+  left: 2%;
+  width: 96%;
+  background: #e3b82e;
+  transform: rotate(17deg);
+}
+
+.routiq-final-root .ri-auth-map-route.route-green {
+  top: 17%;
+  left: 20%;
+  width: 73%;
+  background: #62b47a;
+  transform: rotate(33deg);
+}
+
+.routiq-final-root .ri-auth-map-route.route-red {
+  top: 26%;
+  left: 61%;
+  width: 33%;
+  background: #e35c56;
+  transform: rotate(-28deg);
+}
+
+.routiq-final-root .ri-auth-map-marker {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  border: 2px solid #f8f3df;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 850;
+  box-shadow: 0 0 0 5px rgba(255,255,255,.08);
+}
+
+.routiq-final-root .ri-auth-map-marker.red { background: #d84d48; }
+.routiq-final-root .ri-auth-map-marker.amber { background: #dba81b; color: #252115; }
+.routiq-final-root .ri-auth-map-marker.green { background: #4b9d66; }
+
+.routiq-final-root .ri-auth-map-marker.marker-one { top: 19%; right: 17%; }
+.routiq-final-root .ri-auth-map-marker.marker-two { top: 57%; left: 21%; }
+.routiq-final-root .ri-auth-map-marker.marker-three { top: 38%; left: 39%; }
+.routiq-final-root .ri-auth-map-marker.marker-four { top: 69%; right: 14%; }
+.routiq-final-root .ri-auth-map-marker.marker-five { top: 75%; left: 57%; }
+
+.routiq-final-root .ri-auth-map-popup {
+  position: absolute;
+  z-index: 3;
+  top: 39%;
+  left: 33%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: min(270px, 66%);
+  padding: 9px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 11px;
+  background: rgba(28,33,42,.97);
+  box-shadow: 0 9px 24px rgba(0,0,0,.28);
+}
+
+.routiq-final-root .ri-auth-demo-road-photo {
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-radius: 7px;
+  background: linear-gradient(145deg, #85877a, #414a49);
+  color: #f8df9a;
+}
+
+.routiq-final-root .ri-auth-map-popup > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.routiq-final-root .ri-auth-demo-tag {
+  color: #ffce4c;
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .1em;
+}
+
+.routiq-final-root .ri-auth-map-popup strong {
+  color: #fff;
+  font-size: 10px;
+}
+
+.routiq-final-root .ri-auth-map-popup small {
+  color: #c4c8ce;
+  font-size: 8px;
+}
+
+.routiq-final-root .ri-auth-map-scale {
+  position: absolute;
+  z-index: 1;
+  bottom: 9px;
+  left: 11px;
+  color: rgba(240,240,232,.65);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  min-width: 0;
+  padding: 12px 11px;
+  border: 1px solid #eee4d1;
+  border-radius: 12px;
+  background: rgba(255,255,255,.77);
+}
+
+.routiq-final-root .ri-auth-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 9px;
+  border-radius: 10px;
+  background: #fff0b8;
+  color: #8c690c;
+}
+
+.routiq-final-root .ri-auth-feature-icon.green {
+  background: #e3edda;
+  color: #4d8054;
+}
+
+.routiq-final-root .ri-auth-feature-card strong {
+  display: block;
+  color: #272930;
+  font-size: 10px;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.routiq-final-root .ri-auth-feature-card p {
+  margin: 5px 0 0;
+  color: #737780;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #eee3cd;
+  border-radius: 13px;
+  background: linear-gradient(110deg, #fff8df, #fffefa);
+}
+
+.routiq-final-root .ri-auth-impact-strip > div:first-child strong {
+  display: block;
+  color: #282a2f;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.routiq-final-root .ri-auth-impact-strip p {
+  margin: 5px 0 0;
+  color: #777a80;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.routiq-final-root .ri-auth-impact-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.routiq-final-root .ri-auth-impact-items span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #565a61;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.routiq-final-root .ri-auth-impact-items i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #77945e;
+}
+
+.routiq-final-root .ri-auth-preview-disclaimer {
+  margin: -7px 2px 0;
+  color: #89857a;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+@media (max-width: 1250px) {
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(385px, .95fr) minmax(390px, 1.05fr);
+  }
+
+  .routiq-final-root .ri-auth-brand-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 10px;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    order: 2;
+  }
+
+  .routiq-final-root .ri-auth-form-panel {
+    order: 1;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-width: 560px;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 245px;
+  }
+}
+
+@media (max-width: 520px) {
+  .routiq-final-root .ri-auth-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .routiq-final-root .ri-auth-feature-card {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  .routiq-final-root .ri-auth-feature-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .routiq-final-root .ri-auth-feature-card p {
+    grid-column: 2;
+  }
+
+  .routiq-final-root .ri-auth-map-pills span {
+    padding: 5px 6px;
+    font-size: 7px;
+  }
+}
+/* RoutIQ reference-matched auth layout v2 */
+.routiq-final-root .ri-auth-landing {
+  grid-template-columns: minmax(390px, .78fr) minmax(610px, 1.22fr);
+  align-items: stretch;
+  gap: 20px;
+  max-width: 1800px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 14px clamp(12px, 1.6vw, 26px);
+  background: #fffaf0;
+  overflow: visible;
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 12px 0;
+  background: transparent;
+}
+
+.routiq-final-root .ri-auth-form-frame {
+  width: 100%;
+  max-width: 560px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: clamp(23px, 2.25vw, 35px);
+  border: 1px solid #eee3d0;
+  border-radius: 21px;
+  background: #fffefa;
+  box-shadow: 0 16px 44px rgba(84, 64, 25, .085);
+}
+
+.routiq-final-root .ri-auth-form-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 23px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark {
+  flex: 0 0 42px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark strong {
+  color: #1e2025;
+  font-size: 29px;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark strong span {
+  color: #d9a30d;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark small {
+  font-size: 8px;
+  letter-spacing: .13em;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: #25262b !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div:has(.routiq-auth-form) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-mark {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 18px 0;
+  padding: 4px;
+  border: 1px solid #eee4d0;
+  border-radius: 11px;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button {
+  min-height: 39px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #68665f;
+  font-weight: 650;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f3d675;
+  background: #fff0b7 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 2px 5px rgba(127, 98, 22, .07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  color: #292b30;
+  font-weight: 750;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  min-height: 42px;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 9px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input:focus {
+  border-color: #d9a90d !important;
+  outline: 3px solid rgba(246,189,37,.2);
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"] {
+  min-height: 45px;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #ffd34d, #f3b916) !important;
+  color: #201c12 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 7px 15px rgba(204,153,14,.12) !important;
+}
+
+.routiq-final-root .ri-auth-showcase {
+  align-self: stretch;
+  gap: 16px;
+  padding: clamp(17px, 1.7vw, 26px);
+  border-color: #eee3d0;
+  border-radius: 20px;
+  background:
+    radial-gradient(ellipse at 92% 2%, rgba(255,226,151,.4), transparent 36%),
+    #fffdf6;
+  box-shadow: 0 12px 36px rgba(84,64,25,.055);
+}
+
+.routiq-final-root .ri-auth-showcase-heading {
+  padding: 3px 4px 0;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  font-size: clamp(25px, 2vw, 35px);
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  color: #222631;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  max-width: 620px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.routiq-final-root .ri-auth-map-preview {
+  overflow: hidden;
+  border: 1px solid #d8ddcf;
+  border-radius: 15px;
+  background: #edf0e4;
+  box-shadow: 0 9px 25px rgba(67,72,50,.1);
+}
+
+.routiq-final-root .ri-auth-map-topbar {
+  background: #fffdf6;
+  border-bottom: 1px solid #dfe3d5;
+}
+
+.routiq-final-root .ri-auth-mini-brand {
+  color: #24262a;
+}
+
+.routiq-final-root .ri-auth-map-pills span {
+  border-color: #e2dfd1;
+  background: #fffefa;
+  color: #65675e;
+}
+
+.routiq-final-root .ri-auth-map-pills span.selected {
+  border-color: #efd372;
+  background: #fff0b3;
+  color: #59430a;
+  font-weight: 800;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  height: clamp(290px, 39vh, 410px);
+  min-height: 290px;
+  background: #edf0e4;
+  isolation: isolate;
+}
+
+.routiq-final-root .ri-auth-map-surface::before,
+.routiq-final-root .ri-auth-map-surface::after {
+  display: none !important;
+  content: none !important;
+}
+
+.routiq-final-root .ri-auth-map-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.routiq-final-root .ri-auth-map-label {
+  z-index: 1;
+  color: #7a826e;
+  font-size: 8px;
+  font-weight: 800;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+
+.routiq-final-root .ri-auth-map-marker {
+  z-index: 3;
+  width: 25px;
+  height: 25px;
+  border: 3px solid #fffdf3;
+  box-shadow: 0 2px 7px rgba(51,55,42,.22);
+}
+
+.routiq-final-root .ri-auth-map-marker.red { background: #cf5a4d; color: #fff; }
+.routiq-final-root .ri-auth-map-marker.amber { background: #e2ae21; color: #292418; }
+.routiq-final-root .ri-auth-map-marker.green { background: #579967; color: #fff; }
+
+.routiq-final-root .ri-auth-map-marker.marker-one { top: 26%; right: 19%; }
+.routiq-final-root .ri-auth-map-marker.marker-two { top: 58%; left: 19%; }
+.routiq-final-root .ri-auth-map-marker.marker-three { top: 42%; left: 43%; }
+.routiq-final-root .ri-auth-map-marker.marker-four { top: 72%; right: 12%; }
+.routiq-final-root .ri-auth-map-marker.marker-five { top: 77%; left: 56%; }
+
+.routiq-final-root .ri-auth-map-hero {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 220px;
+  padding: 11px 13px;
+  border: 1px solid #f0df9a;
+  border-radius: 12px;
+  background: rgba(255,249,222,.96);
+  box-shadow: 0 5px 16px rgba(89,74,32,.12);
+}
+
+.routiq-final-root .ri-auth-map-hero-icon {
+  display: flex;
+  flex: 0 0 35px;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 9px;
+  background: #ffe9a1;
+  color: #84610b;
+}
+
+.routiq-final-root .ri-auth-map-hero > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.routiq-final-root .ri-auth-map-hero strong {
+  color: #28291f;
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.routiq-final-root .ri-auth-map-hero small {
+  color: #77746a;
+  font-size: 8px;
+}
+
+.routiq-final-root .ri-auth-map-popup {
+  z-index: 4;
+  gap: 8px;
+  width: min(255px, 55%);
+  padding: 8px;
+  border: 1px solid #e7e0cf;
+  border-radius: 10px;
+  background: rgba(255,254,249,.97);
+  box-shadow: 0 5px 15px rgba(61,67,51,.14);
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-detection {
+  top: 32%;
+  left: 5%;
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-gps {
+  top: 54%;
+  right: 3%;
+  left: auto;
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-repair {
+  top: auto;
+  bottom: 8%;
+  left: 28%;
+}
+
+.routiq-final-root .ri-auth-demo-road-photo {
+  flex-basis: 42px;
+  height: 42px;
+  background: #dfe4d6;
+  color: #55664b;
+}
+
+.routiq-final-root .ri-auth-demo-road-photo.gps {
+  background: #dcebd9;
+  color: #4c835b;
+}
+
+.routiq-final-root .ri-auth-demo-road-photo.repair {
+  background: #fff0c2;
+  color: #9c7417;
+}
+
+.routiq-final-root .ri-auth-demo-tag {
+  color: #b44b3e;
+  font-size: 7px;
+  line-height: 1.3;
+}
+
+.routiq-final-root .ri-auth-demo-tag.green {
+  color: #528558;
+}
+
+.routiq-final-root .ri-auth-map-popup strong {
+  color: #25282c;
+  font-size: 10px;
+}
+
+.routiq-final-root .ri-auth-map-popup small {
+  color: #72766f;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.routiq-final-root .ri-auth-map-scale {
+  z-index: 2;
+  bottom: 7px;
+  left: 10px;
+  color: #737967;
+  font-size: 7px;
+  letter-spacing: .08em;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  border-color: #e9e2d1;
+  border-radius: 12px;
+  background: rgba(255,255,255,.86);
+  padding: 13px;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  border-color: #eadfc9;
+  background: linear-gradient(110deg, #fff7dc, #fffefa);
+}
+
+.routiq-final-root .ri-auth-preview-disclaimer {
+  margin-top: -7px;
+  color: #898276;
+  font-size: 8px;
+}
+
+@media (max-width: 1120px) {
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 850px;
+    padding: 12px;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-width: 560px;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    order: 2;
+  }
+
+  .routiq-final-root .ri-auth-form-panel {
+    order: 1;
+  }
+}
+
+@media (max-width: 620px) {
+  .routiq-final-root .ri-auth-landing {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    padding: 19px 16px;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    padding: 13px;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 350px;
+  }
+
+  .routiq-final-root .ri-auth-map-popup {
+    width: min(225px, 68%);
+  }
+
+  .routiq-final-root .ri-auth-map-popup.callout-repair {
+    left: 19%;
+  }
+
+  .routiq-final-root .ri-auth-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .routiq-final-root .ri-auth-feature-card {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 5px 10px;
+    align-items: center;
+  }
+
+  .routiq-final-root .ri-auth-feature-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .routiq-final-root .ri-auth-feature-card p {
+    grid-column: 2;
+  }
+}
+/* RoutIQ compact reference auth layout v3 */
+.routiq-final-root:has(.ri-auth-landing) {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  background: #fffaf0;
+}
+
+.routiq-final-root .ri-auth-landing {
+  display: grid;
+  grid-template-columns: minmax(370px, .78fr) minmax(0, 1.22fr);
+  align-items: stretch;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 10px 14px;
+  overflow: hidden;
+  background: #fffaf0;
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.routiq-final-root .ri-auth-form-frame {
+  width: 100%;
+  max-width: 510px;
+  max-height: 100%;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 20px 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #eee3d0;
+  border-radius: 19px;
+  background: #fffefa;
+  box-shadow: 0 10px 28px rgba(84, 64, 25, .065);
+  scrollbar-width: thin;
+  scrollbar-color: #ded3ba transparent;
+}
+
+.routiq-final-root .ri-auth-form-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 13px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark {
+  flex: 0 0 37px;
+  width: 37px;
+  height: 38px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark i {
+  height: 32px;
+  width: 18px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark b {
+  left: 17px;
+  height: 35px;
+  width: 15px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark strong {
+  font-size: 25px;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark small {
+  font-size: 7px;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  color: #20232b !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div:has(.routiq-auth-form),
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page div:has(> .routiq-auth-form) {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-mark {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame h1,
+.routiq-final-root .ri-auth-form-frame h2 {
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
+  color: #20232b !important;
+  font-size: clamp(21px, 1.65vw, 27px) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.035em;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page p {
+  margin-top: 5px !important;
+  margin-bottom: 9px !important;
+  color: #747780;
+  font-size: 11px !important;
+  line-height: 1.45 !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin: 12px 0 13px !important;
+  padding: 3px;
+  border: 1px solid #eee4d0;
+  border-radius: 10px;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button {
+  min-height: 34px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #66645e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f0d16b;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 1px 3px rgba(127, 98, 22, .07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid;
+  gap: 8px !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  display: grid;
+  gap: 4px !important;
+  color: #292b30 !important;
+  font-size: 11px !important;
+  font-weight: 750;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  width: 100%;
+  min-height: 35px !important;
+  height: 35px;
+  padding: 7px 10px !important;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 8px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  font-size: 11px !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input:focus {
+  border-color: #d8aa23 !important;
+  outline: 2px solid rgba(246, 189, 37, .19);
+  outline-offset: 1px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"] {
+  min-height: 39px !important;
+  height: auto;
+  margin-top: 5px;
+  padding: 9px 12px !important;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 9px !important;
+  background: linear-gradient(110deg, #ffd34d, #f4b916) !important;
+  color: #211c11 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(204, 153, 14, .1) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"]:hover {
+  filter: brightness(.98);
+}
+
+.routiq-final-root .ri-auth-showcase {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 15px;
+  overflow: hidden;
+  border: 1px solid #eee3d0;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 92% 2%, rgba(255, 226, 151, .3), transparent 36%),
+    #fffdf6;
+}
+
+.routiq-final-root .ri-auth-showcase-heading {
+  padding: 0 2px;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  margin: 0 !important;
+  font-size: clamp(23px, 1.9vw, 31px) !important;
+  line-height: 1.08 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  margin-top: 7px !important;
+  margin-bottom: 0 !important;
+  font-size: 10px !important;
+  line-height: 1.45 !important;
+}
+
+.routiq-final-root .ri-auth-eyebrow {
+  margin-bottom: 6px;
+  font-size: 8px;
+}
+
+.routiq-final-root .ri-auth-map-preview {
+  flex: 0 1 auto;
+  min-height: 0;
+  border-radius: 12px;
+}
+
+.routiq-final-root .ri-auth-map-topbar {
+  min-height: 34px;
+  padding: 5px 9px;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  height: clamp(205px, 29vh, 270px) !important;
+  min-height: 205px !important;
+}
+
+.routiq-final-root .ri-auth-map-hero {
+  top: 8px;
+  right: 8px;
+  max-width: 190px;
+  padding: 8px 9px;
+}
+
+.routiq-final-root .ri-auth-map-popup {
+  max-width: 225px;
+  padding: 7px;
+}
+
+.routiq-final-root .ri-auth-demo-road-photo {
+  flex-basis: 34px;
+  height: 34px;
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-detection {
+  top: 34%;
+  left: 3%;
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-gps {
+  top: 54%;
+  right: 2%;
+}
+
+.routiq-final-root .ri-auth-map-popup.callout-repair {
+  bottom: 5%;
+  left: 24%;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  flex: 0 0 auto;
+  gap: 7px;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  padding: 9px;
+  border-radius: 10px;
+}
+
+.routiq-final-root .ri-auth-feature-icon {
+  width: 29px;
+  height: 29px;
+  margin-bottom: 6px;
+}
+
+.routiq-final-root .ri-auth-feature-card strong {
+  font-size: 9px;
+}
+
+.routiq-final-root .ri-auth-feature-card p {
+  margin-top: 3px;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  flex: 0 0 auto;
+  gap: 7px;
+  padding: 9px 11px;
+  border-radius: 10px;
+}
+
+.routiq-final-root .ri-auth-impact-strip > div:first-child strong {
+  font-size: 10px;
+}
+
+.routiq-final-root .ri-auth-impact-strip p {
+  margin-top: 3px;
+  font-size: 8px;
+}
+
+.routiq-final-root .ri-auth-impact-items {
+  gap: 6px 10px;
+}
+
+.routiq-final-root .ri-auth-impact-items span {
+  font-size: 8px;
+}
+
+.routiq-final-root .ri-auth-preview-disclaimer {
+  margin: -4px 1px 0;
+  font-size: 7px;
+}
+
+@media (max-height: 820px) and (min-width: 1121px) {
+  .routiq-final-root .ri-auth-landing {
+    padding: 7px 12px;
+    gap: 11px;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    padding: 15px 20px;
+  }
+
+  .routiq-final-root .ri-auth-form-brand {
+    margin-bottom: 9px;
+  }
+
+  .routiq-final-root .ri-auth-form-frame h1,
+  .routiq-final-root .ri-auth-form-frame h2 {
+    font-size: 21px !important;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 205px !important;
+    min-height: 205px !important;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    gap: 7px;
+    padding: 11px;
+  }
+
+  .routiq-final-root .ri-auth-impact-strip {
+    padding: 7px 9px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .routiq-final-root:has(.ri-auth-landing) {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .routiq-final-root .ri-auth-landing {
+    height: auto;
+    min-height: 100dvh;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+    padding: 12px;
+  }
+
+  .routiq-final-root .ri-auth-form-panel {
+    height: auto;
+    overflow: visible;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-height: none;
+    max-width: 540px;
+    overflow: visible;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    height: auto;
+    overflow: visible;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 255px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .routiq-final-root .ri-auth-landing {
+    padding: 7px;
+    gap: 10px;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    padding: 17px 15px;
+    border-radius: 15px;
+  }
+
+  .routiq-final-root .ri-auth-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .routiq-final-root .ri-auth-feature-card {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 4px 9px;
+    align-items: center;
+  }
+
+  .routiq-final-root .ri-auth-feature-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .routiq-final-root .ri-auth-feature-card p {
+    grid-column: 2;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 310px !important;
+  }
+}
+
+/* End RoutIQ compact reference auth layout v3 */
+/* RoutIQ auth screen transparent compact v5 */
+.routiq-final-root:has(.ri-auth-landing) {
+  width: 100%;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-landing {
+  display: grid !important;
+  grid-template-columns: minmax(370px, .82fr) minmax(0, 1.18fr) !important;
+  gap: 14px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 9px 12px !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+/* One outer white card, with no blue inner panel. */
+.routiq-final-root .ri-auth-form-frame {
+  width: 100% !important;
+  max-width: 510px !important;
+  max-height: calc(100dvh - 18px) !important;
+  min-width: 0 !important;
+  margin: auto !important;
+  padding: 17px 22px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  border: 1px solid #eee3d0 !important;
+  border-radius: 17px !important;
+  background: #fffefa !important;
+  box-shadow: 0 8px 25px rgba(84,64,25,.055) !important;
+  scrollbar-width: thin;
+  scrollbar-color: #ded3ba transparent;
+}
+
+.routiq-final-root .ri-auth-form-panel,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page section,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page div:has(.routiq-auth-switch) {
+  min-height: 0 !important;
+  height: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #25262b !important;
+  overflow: visible !important;
+}
+
+.routiq-final-root .ri-auth-form-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 0 10px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark strong {
+  font-size: 25px !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-mark {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame h1,
+.routiq-final-root .ri-auth-form-frame h2 {
+  margin: 5px 0 6px !important;
+  color: #20232b !important;
+  font-size: clamp(20px,1.55vw,25px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.035em !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 3px !important;
+  margin: 11px 0 12px !important;
+  padding: 3px !important;
+  border: 1px solid #eee4d0 !important;
+  border-radius: 9px !important;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f0d16b !important;
+  border-radius: 7px !important;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 1px 3px rgba(127,98,22,.07) !important;
+}
+
+/* Auth field class can be a div; style it independently of native forms. */
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid !important;
+  gap: 7px !important;
+  width: 100%;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  display: grid !important;
+  gap: 4px !important;
+  color: #292b30 !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  width: 100% !important;
+  min-height: 35px !important;
+  height: 35px !important;
+  padding: 7px 10px !important;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 8px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  font-size: 11px !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input:focus {
+  border-color: #d8aa23 !important;
+  outline: 2px solid rgba(246,189,37,.18) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-primary-button,
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"] {
+  min-height: 39px !important;
+  margin-top: 4px !important;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 9px !important;
+  background: linear-gradient(110deg,#ffd34d,#f4b916) !important;
+  color: #211c11 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(204,153,14,.1) !important;
+}
+
+/* Reference-style OR and alternate sign-in action. */
+.routiq-final-root .routiq-auth-or-divider {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 9px 0 5px;
+  color: #89857a;
+  font-size: 9px;
+  text-align: center;
+}
+
+.routiq-final-root .routiq-auth-or-divider::before,
+.routiq-final-root .routiq-auth-or-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e9e0cf;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-alternate {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 0 !important;
+  color: #70716e !important;
+  font-size: 10px !important;
+  text-align: center;
+}
+
+.routiq-final-root .routiq-auth-alternate button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #bd8c08;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-security-note {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  color: #77776f;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.routiq-final-root .routiq-auth-security-icon {
+  display: inline-flex;
+  flex: 0 0 18px;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e2efdb;
+  color: #4c8756;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* Compact right-hand preview for regular desktop screens. */
+.routiq-final-root .ri-auth-showcase {
+  justify-content: flex-start !important;
+  gap: 9px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 12px !important;
+  overflow: hidden !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  font-size: clamp(22px,1.8vw,29px) !important;
+  line-height: 1.08 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  margin: 6px 0 0 !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  height: clamp(190px,25vh,245px) !important;
+  min-height: 185px !important;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  gap: 7px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  padding: 8px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card p {
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  gap: 6px !important;
+  padding: 8px 10px !important;
+}
+
+@media (max-height: 820px) and (min-width: 1121px) {
+  .routiq-final-root .ri-auth-form-frame {
+    padding: 12px 18px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-brand {
+    margin-bottom: 6px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+    gap: 5px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+    min-height: 32px !important;
+    height: 32px !important;
+  }
+
+  .routiq-final-root .ri-auth-showcase {
+    gap: 7px !important;
+    padding: 10px !important;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 185px !important;
+    min-height: 180px !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  .routiq-final-root:has(.ri-auth-landing) {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(0,1fr) !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-form-panel,
+  .routiq-final-root .ri-auth-showcase {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-height: none !important;
+    max-width: 540px !important;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 245px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .routiq-final-root .ri-auth-feature-grid {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+}
+/* End RoutIQ auth screen transparent compact v5 */
+/* RoutIQ auth visual repair v6 */
+.routiq-final-root:has(.ri-auth-landing) {
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-landing {
+  display: grid !important;
+  grid-template-columns: minmax(410px, 44fr) minmax(0, 56fr) !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 10px 16px !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+
+.routiq-final-root .ri-auth-form-frame {
+  width: 100% !important;
+  max-width: 535px !important;
+  max-height: calc(100dvh - 24px) !important;
+  min-width: 0 !important;
+  margin: auto !important;
+  padding: 18px 22px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  border: 1px solid #eee3d0 !important;
+  border-radius: 18px !important;
+  background: #fffefa !important;
+  box-shadow: 0 9px 26px rgba(84,64,25,.055) !important;
+  scrollbar-width: thin;
+  scrollbar-color: #ded3ba transparent;
+}
+
+/* Reset the blue-grey legacy panel and nested auth card wrappers. */
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div:has(.routiq-auth-switch),
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page div:has(.routiq-auth-switch),
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page div:has(.routiq-auth-form) {
+  min-height: 0 !important;
+  height: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #25262b !important;
+  overflow: visible !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  margin: 12px 0 !important;
+  padding: 4px !important;
+  border: 1px solid #eee4d0 !important;
+  border-radius: 10px !important;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f0d16b !important;
+  border-radius: 8px !important;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 1px 3px rgba(127,98,22,.07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid !important;
+  gap: 7px !important;
+  width: 100% !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  display: grid !important;
+  gap: 4px !important;
+  color: #292b30 !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  width: 100% !important;
+  min-height: 35px !important;
+  height: 35px !important;
+  padding: 7px 10px !important;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 8px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  font-size: 11px !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame h1,
+.routiq-final-root .ri-auth-form-frame h2 {
+  margin: 5px 0 7px !important;
+  color: #20232b !important;
+  font-size: clamp(21px, 1.55vw, 26px) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.035em !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-primary-button,
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"] {
+  min-height: 40px !important;
+  margin-top: 5px !important;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 9px !important;
+  background: linear-gradient(110deg,#ffd34d,#f4b916) !important;
+  color: #211c11 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(204,153,14,.1) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 8px 0 5px;
+  color: #89857a;
+  font-size: 9px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider::before,
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e9e0cf;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-alternate {
+  display: flex !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 !important;
+  color: #70716e !important;
+  font-size: 10px !important;
+  text-align: center;
+}
+
+.routiq-final-root .routiq-auth-alternate button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #bd8c08;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-security-note {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 7px;
+  color: #77776f;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.routiq-final-root .ri-auth-showcase {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  gap: 9px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 12px !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  background: #fffdf6 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  font-size: clamp(22px,1.8vw,29px) !important;
+  line-height: 1.1 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  margin: 6px 0 0 !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  height: clamp(190px,25vh,245px) !important;
+  min-height: 185px !important;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  gap: 7px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  padding: 8px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card p {
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  gap: 6px !important;
+  padding: 8px 10px !important;
+}
+
+@media (max-height: 820px) and (min-width: 1121px) {
+  .routiq-final-root .ri-auth-form-frame {
+    padding: 12px 18px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-brand {
+    margin-bottom: 7px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+    gap: 5px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+    min-height: 32px !important;
+    height: 32px !important;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 185px !important;
+    min-height: 180px !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  .routiq-final-root:has(.ri-auth-landing) {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(0,1fr) !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-form-panel,
+  .routiq-final-root .ri-auth-showcase {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-height: none !important;
+    max-width: 540px !important;
+    overflow: visible !important;
+  }
+}
+/* End RoutIQ auth visual repair v6 */
+/* RoutIQ remove nested auth panels v7 */
+
+/* Preserve only the outer cream-white account card. */
+.routiq-final-root .ri-auth-form-panel,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove every nested card/surface surrounding the account tabs.
+   The outer .ri-auth-form-frame is not selected by this rule. */
+.routiq-final-root .ri-auth-form-frame *:has(.routiq-auth-switch) {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+/* Restore the intended cream segmented control and yellow selected tab. */
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  margin: 12px 0 !important;
+  padding: 4px !important;
+  border: 1px solid #eee4d0 !important;
+  border-radius: 10px !important;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button {
+  padding: 8px 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f0d16b !important;
+  border-radius: 8px !important;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+}
+
+/* Keep inputs and the main action visible against the single white card. */
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  background: #fffefa !important;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 8px !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"],
+.routiq-final-root .ri-auth-form-frame .routiq-primary-button {
+  background: linear-gradient(110deg, #ffd34d, #f4b916) !important;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 9px !important;
+  color: #211c11 !important;
+}
+
+/* End RoutIQ remove nested auth panels v7 */
+/* RoutIQ laptop-sized auth layout v8 */
+
+/* Use the laptop viewport without shrinking the content. */
+.routiq-final-root:has(.ri-auth-landing) {
+  width: 100%;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-landing {
+  display: grid !important;
+  grid-template-columns: minmax(500px, 42fr) minmax(0, 58fr) !important;
+  gap: 18px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 14px 18px !important;
+  overflow: hidden !important;
+  background: #fffaf0 !important;
+}
+
+.routiq-final-root .ri-auth-brand-rail {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-panel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+
+/* The single account card fills the left column. */
+.routiq-final-root .ri-auth-form-frame {
+  width: 100% !important;
+  max-width: 680px !important;
+  max-height: calc(100dvh - 28px) !important;
+  min-width: 0 !important;
+  margin: auto !important;
+  padding: clamp(22px, 2vw, 32px) clamp(24px, 2.1vw, 34px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  border: 1px solid #eee3d0 !important;
+  border-radius: 20px !important;
+  background: #fffefa !important;
+  box-shadow: 0 10px 30px rgba(84, 64, 25, .055) !important;
+  scrollbar-width: thin;
+  scrollbar-color: #ded3ba transparent;
+}
+
+/* Remove the nested blue-grey surface without changing the outer card. */
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page > div,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page section,
+.routiq-final-root .ri-auth-form-frame .routiq-detection-page div:has(.routiq-auth-switch) {
+  min-height: 0 !important;
+  height: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+/* Bring back comfortable brand sizing. */
+.routiq-final-root .ri-auth-form-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 13px !important;
+  margin: 0 0 18px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark {
+  flex: 0 0 44px !important;
+  width: 44px !important;
+  height: 45px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark i {
+  height: 38px !important;
+  width: 21px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-roadmark b {
+  left: 20px !important;
+  height: 41px !important;
+  width: 17px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark strong {
+  font-size: 30px !important;
+}
+
+.routiq-final-root .ri-auth-form-brand .ri-auth-wordmark small {
+  font-size: 9px !important;
+  letter-spacing: .13em !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-mark {
+  display: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame h1,
+.routiq-final-root .ri-auth-form-frame h2 {
+  margin: 8px 0 9px !important;
+  color: #20232b !important;
+  font-size: clamp(25px, 2vw, 31px) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Readable tabs and input fields. */
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  margin: 16px 0 18px !important;
+  padding: 4px !important;
+  border: 1px solid #eee4d0 !important;
+  border-radius: 11px !important;
+  background: #f7f0df !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button {
+  min-height: 43px !important;
+  padding: 9px 12px !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #65645e !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-switch button.selected {
+  border-color: #f0d16b !important;
+  border-radius: 8px !important;
+  background: #fff0b6 !important;
+  color: #3b3014 !important;
+  box-shadow: 0 1px 3px rgba(127,98,22,.07) !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form {
+  display: grid !important;
+  gap: 11px !important;
+  width: 100% !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form label {
+  display: grid !important;
+  gap: 6px !important;
+  color: #292b30 !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input {
+  width: 100% !important;
+  min-height: 43px !important;
+  height: 43px !important;
+  padding: 9px 12px !important;
+  border: 1px solid #e6dcc7 !important;
+  border-radius: 9px !important;
+  background: #fffefa !important;
+  color: #26282d !important;
+  font-size: 13px !important;
+  box-shadow: none !important;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form input:focus {
+  border-color: #d8aa23 !important;
+  outline: 3px solid rgba(246,189,37,.17) !important;
+  outline-offset: 1px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-form button[type="submit"],
+.routiq-final-root .ri-auth-form-frame .routiq-primary-button {
+  min-height: 47px !important;
+  margin-top: 6px !important;
+  padding: 11px 15px !important;
+  border: 1px solid #e5ad13 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(110deg,#ffd34d,#f4b916) !important;
+  color: #211c11 !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 5px 14px rgba(204,153,14,.1) !important;
+}
+
+/* Sign-in alternate action and security note. */
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 13px 0 8px;
+  color: #89857a;
+  font-size: 11px;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider::before,
+.routiq-final-root .ri-auth-form-frame .routiq-auth-or-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e9e0cf;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-alternate {
+  display: flex !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 !important;
+  color: #70716e !important;
+  font-size: 12px !important;
+  text-align: center;
+}
+
+.routiq-final-root .routiq-auth-alternate button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #bd8c08;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.routiq-final-root .ri-auth-form-frame .routiq-auth-security-note {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 10px;
+  color: #77776f;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+/* Use the laptop's available height for the product showcase. */
+.routiq-final-root .ri-auth-showcase {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 17px !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  background: #fffdf6 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading h1 {
+  font-size: clamp(26px, 2.2vw, 35px) !important;
+  line-height: 1.1 !important;
+}
+
+.routiq-final-root .ri-auth-showcase-heading p {
+  margin: 8px 0 0 !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+
+.routiq-final-root .ri-auth-map-surface {
+  height: clamp(260px, 32vh, 340px) !important;
+  min-height: 245px !important;
+}
+
+.routiq-final-root .ri-auth-feature-grid {
+  gap: 9px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card {
+  padding: 11px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card strong {
+  font-size: 11px !important;
+}
+
+.routiq-final-root .ri-auth-feature-card p {
+  font-size: 10px !important;
+  line-height: 1.45 !important;
+}
+
+.routiq-final-root .ri-auth-impact-strip {
+  gap: 8px !important;
+  padding: 11px 13px !important;
+}
+
+.routiq-final-root .ri-auth-impact-strip > div:first-child strong {
+  font-size: 12px !important;
+}
+
+.routiq-final-root .ri-auth-impact-strip p {
+  font-size: 10px !important;
+}
+
+.routiq-final-root .ri-auth-impact-items span {
+  font-size: 10px !important;
+}
+
+/* Keep everything usable on smaller screens instead of cropping it. */
+@media (max-width: 1120px) {
+  .routiq-final-root:has(.ri-auth-landing) {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-landing {
+    grid-template-columns: minmax(0,1fr) !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+    padding: 12px !important;
+  }
+
+  .routiq-final-root .ri-auth-form-panel,
+  .routiq-final-root .ri-auth-showcase {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-form-frame {
+    max-width: 600px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .routiq-final-root .ri-auth-map-surface {
+    height: 300px !important;
+  }
+}
+
+/* End RoutIQ laptop-sized auth layout v8 */
+/* RoutIQ app-wide back button v1 */
+.routiq-final-root .ri-back-button {
+  display: inline-flex;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--ri-border);
+  border-radius: 10px;
+  background: var(--ri-card);
+  color: var(--ri-text);
+  font-family: inherit;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+
+.routiq-final-root .ri-back-button:hover:not(:disabled) {
+  border-color: #e5bd38;
+  background: #fff0b5;
+  color: #3b3014;
+}
+
+.routiq-final-root .ri-back-button:focus-visible {
+  outline: 2px solid #d8aa23;
+  outline-offset: 2px;
+}
+
+.routiq-final-root .ri-back-button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.routiq-final-root .ri-toggle-row-disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.routiq-final-root .ri-toggle-row-disabled i {
+  background: #e9e2d2;
+}
+
+@media (max-width: 760px) {
+  .routiq-final-root .ri-back-button {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+/* End RoutIQ app-wide back button v1 */
+
+
+/* RoutIQ before after visual evidence panel v1 */
+.ri-before-after-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.ri-session-image-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e8dfcb;
+  border-radius: 10px;
+  background: #fffefa;
+}
+.ri-session-image-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee4d0;
+}
+.ri-session-image-heading strong { font-size: 12px; color: #2b291f; }
+.ri-session-image-heading small { overflow-wrap: anywhere; color: #817761; font-size: 10px; }
+.ri-session-image-card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  background: #f4f0e5;
+}
+.ri-session-image-empty {
+  display: grid;
+  min-height: 150px;
+  padding: 16px;
+  place-items: center;
+  text-align: center;
+  color: #817761;
+  background: #faf7ed;
+  font-size: 12px;
+}
+.ri-visual-comparison-result {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid #d4e1c7;
+  border-radius: 10px;
+  background: #f5f8eb;
+  color: #4c6645;
+}
+.ri-visual-comparison-result.abstained {
+  border-color: #e9d89b;
+  background: #fff7df;
+  color: #776024;
+}
+.ri-visual-comparison-result h3 { margin: 4px 0; font-size: 15px; }
+.ri-visual-comparison-result > p { margin: 10px 0 0; font-size: 12px; line-height: 1.5; }
+.ri-dark .ri-session-image-card { background: #29261f; border-color: #4b4230; }
+.ri-dark .ri-session-image-heading { border-bottom-color: #4b4230; }
+.ri-dark .ri-session-image-heading strong { color: #efe6cf; }
+.ri-dark .ri-session-image-empty { background: #302b20; color: #c1b69b; }
+@media (max-width: 900px) {
+  .ri-before-after-grid { grid-template-columns: 1fr; }
+  .ri-session-image-card img { height: 210px; }
+}
+/* End RoutIQ before after visual evidence panel v1 */
+
+
+/* RoutIQ functional analytics range and evidence summary v1 */
+.ri-analytics-note {
+  color: var(--ri-muted, #827762);
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 12px 0 0;
+}
+.ri-analytics-trend-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 6px 0 2px;
+  scrollbar-width: thin;
+}
+.ri-analytics-trend {
+  display: grid;
+  align-items: end;
+  gap: 7px;
+  min-height: 178px;
+  padding: 6px 0 0;
+}
+.ri-analytics-trend-col {
+  min-width: 0;
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--ri-muted, #827762);
+}
+.ri-analytics-trend-track {
+  width: 100%;
+  max-width: 28px;
+  height: 125px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid var(--ri-border, #e8dfcb);
+  background: linear-gradient(to bottom, transparent 24%, rgba(170, 148, 97, .07) 25%, transparent 26%, transparent 49%, rgba(170, 148, 97, .07) 50%, transparent 51%, transparent 74%, rgba(170, 148, 97, .07) 75%, transparent 76%);
+}
+.ri-analytics-trend-bar {
+  width: 72%;
+  min-height: 0;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(180deg, #f7d76c, #d6a914);
+  transition: height .2s ease;
+}
+.ri-analytics-trend-col small { font-size: 10px; font-weight: 700; color: var(--ri-text, #29261f); }
+.ri-confidence-summary { display: grid; gap: 18px; padding-top: 8px; }
+.ri-confidence-summary > div { display: grid; gap: 7px; }
+.ri-confidence-summary span { font-size: 12px; color: var(--ri-muted, #827762); }
+.ri-confidence-summary strong { font-size: 22px; font-weight: 750; color: var(--ri-text, #29261f); }
+.ri-confidence-summary .ri-bar-track { width: 100%; }
+.ri-confidence-summary .ri-bar-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #efd05b, #d6a914);
+}
+@media (max-width: 760px) {
+  .ri-analytics-trend { gap: 4px; }
+  .ri-analytics-trend-track { max-width: 22px; }
+}
+/* End RoutIQ functional analytics range and evidence summary v1 */
+
+
+/* RoutIQ analytics range repair v2 */
+.ri-analytics-note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ri-muted, #827762);
+}
+.ri-analytics-trend-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 6px 0 3px;
+  scrollbar-width: thin;
+}
+.ri-analytics-trend {
+  display: grid;
+  align-items: end;
+  gap: 7px;
+  min-height: 178px;
+  padding-top: 6px;
+}
+.ri-analytics-trend-col {
+  min-width: 0;
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--ri-muted, #827762);
+}
+.ri-analytics-trend-track {
+  width: 100%;
+  max-width: 28px;
+  height: 125px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid var(--ri-border, #e8dfcb);
+  background: linear-gradient(to bottom, transparent 24%, rgba(170,148,97,.07) 25%, transparent 26%, transparent 49%, rgba(170,148,97,.07) 50%, transparent 51%, transparent 74%, rgba(170,148,97,.07) 75%, transparent 76%);
+}
+.ri-analytics-trend-bar {
+  width: 72%;
+  min-height: 0;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(180deg, #f7d76c, #d6a914);
+  transition: height .2s ease;
+}
+.ri-analytics-trend-col small {
+  color: var(--ri-text, #29261f);
+  font-size: 10px;
+  font-weight: 700;
+}
+.ri-confidence-summary {
+  display: grid;
+  gap: 18px;
+  padding-top: 8px;
+}
+.ri-confidence-summary > div { display: grid; gap: 7px; }
+.ri-confidence-summary span {
+  color: var(--ri-muted, #827762);
+  font-size: 12px;
+}
+.ri-confidence-summary strong {
+  color: var(--ri-text, #29261f);
+  font-size: 22px;
+  font-weight: 750;
+}
+.ri-confidence-summary .ri-bar-track { width: 100%; }
+.ri-confidence-summary .ri-bar-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #efd05b, #d6a914);
+}
+@media (max-width: 760px) {
+  .ri-analytics-trend { gap: 4px; }
+  .ri-analytics-trend-track { max-width: 22px; }
+}
+/* End RoutIQ analytics range repair v2 */
+
+
+/* RoutIQ hide shared period filter on Settings v2 */
+.ri-heading-actions-hidden {
+  display: none !important;
+}
+/* End RoutIQ Settings period-filter rule */
+
+
+/* RoutIQ Reported Issues AI observations tabs v1 */
+.ri-issues-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px;
+  margin: 0 0 16px;
+  border: 1px solid #eadfc7;
+  border-radius: 12px;
+  background: #f7f0df;
+}
+
+.ri-issues-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #5f5543;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ri-issues-tab span {
+  display: inline-flex;
+  min-width: 22px;
+  min-height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 99px;
+  background: #eee4ca;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ri-issues-tab[aria-selected="true"] {
+  border-color: #edc84e;
+  background: #ffefb2;
+  color: #241d0c;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgb(60 45 8 / 7%);
+}
+
+.ri-observation-status-editor {
+  display: grid;
+  min-width: 190px;
+  gap: 6px;
+}
+
+.ri-observation-status-editor select {
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 9px;
+  border: 1px solid #e4d6b9;
+  border-radius: 8px;
+  background: #fffdf8;
+  color: #332d22;
+  font: inherit;
+  font-size: 12px;
+}
+
+.ri-inline-success {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid #d5e7cb;
+  border-radius: 9px;
+  background: #f1f8e9;
+  color: #3e7245;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .ri-issues-tabs {
+    width: 100%;
+  }
+
+  .ri-issues-tab {
+    flex: 1 1 auto;
+    padding: 9px 11px;
+  }
+
+  .ri-observation-status-editor {
+    min-width: 170px;
+  }
+}
+/* End RoutIQ Reported Issues AI observations tabs v1 */

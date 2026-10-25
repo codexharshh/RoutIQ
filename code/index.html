@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./routiq.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoutIQ — Intelligent Road Infrastructure Analytics</title>
+  <meta name="author" content="Harsh" />
+  <meta name="description" content="RoutIQ turns road imagery into mapped road-damage observations, inspection history, and infrastructure insights." />
+  <script>
+    // Handle GitHub Pages SPA routing
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath) {
+      sessionStorage.removeItem('redirectPath');
+      history.replaceState(null, null, redirectPath);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="./src/main.tsx"></script>
+</body>
+
+</html>
