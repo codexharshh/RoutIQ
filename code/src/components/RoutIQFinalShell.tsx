@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { Location, Pothole, PotholeSeverity, PotholeStatus, PotholeStats, RoadHealthData } from '../types';
 import { potholeApiService } from '../services/potholeApiService';
 import { roadHealthService } from '../services/roadHealthService';
+import { API_BASE_URL } from '../config';
 import { LocationSearch } from './LocationSearch';
 import { LocationSearchService } from '../services/locationSearchService';
 import { MapComponent } from './MapComponent';
@@ -186,7 +187,7 @@ function isSameInspectionPass(a: Observation, b: Observation): boolean {
   return distanceM <= 15;
 }
 
-const API_ROOT = '/api/v1';
+const API_ROOT = `${API_BASE_URL.replace(/\\/+$/, '')}/v1`;
 const ACCESS_KEY = 'routiq_access_token';
 const REFRESH_KEY = 'routiq_refresh_token';
 const USER_KEY = 'routiq_user';
