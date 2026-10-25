@@ -62,7 +62,7 @@ jobs:
           cache-dependency-path: code/package-lock.json
 
       - name: Install locked dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Run ESLint
         run: npm run lint
