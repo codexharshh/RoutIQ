@@ -7,7 +7,7 @@ import { networkInterfaces } from 'os';
 const configuredBasePath = (process.env.VITE_APP_BASE_PATH || '/project/routiq').trim();
 const APP_BASE_PATH = configuredBasePath === '/'
   ? ''
-  : `/${configuredBasePath.replace(/^\\/+|\\/+$/g, '')}`;
+  : `/${configuredBasePath.replace(/^\/+|\/+$/g, '')}`;
 const backendTarget = process.env.ROUTIQ_DJANGO_URL || 'http://127.0.0.1:8000';
 const safeBackendTarget = (() => {
   try {
