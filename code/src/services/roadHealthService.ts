@@ -29,7 +29,7 @@ class RoadHealthService {
             if (!refresh) continue;
 
             try {
-                const response = await fetch(`${API_BASE_URL.replace(/\\/+$/, '')}/v1/auth/token/refresh/`, {
+                const response = await fetch(`${API_BASE_URL.replace(/\/+$/, '')}/v1/auth/token/refresh/`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
