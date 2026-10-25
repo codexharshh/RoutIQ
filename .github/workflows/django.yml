@@ -1,4 +1,4 @@
-﻿name: RoutIQ quality checks
+name: RoutIQ quality checks
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
 jobs:
   backend:
     name: Django and FastAPI tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: code/backend
@@ -23,10 +23,10 @@ jobs:
       ROUTIQ_VISION_URL: http://127.0.0.1:8100
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -46,16 +46,16 @@ jobs:
 
   frontend:
     name: React quality checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: code
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "20"
           cache: npm
@@ -72,6 +72,8 @@ jobs:
 
       - name: Run frontend API payload test
         run: npx tsx tests/apiPayload.test.mjs
+      - name: Run GPS location service test
+        run: npx tsx tests/gpsLocationService.test.mjs
 
       - name: Build production frontend
         run: npm run build
