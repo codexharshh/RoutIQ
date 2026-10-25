@@ -2,8 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { networkInterfaces } from 'os';
 
-// The SPA is mounted at this path; API routes stay rooted at /api and /gov-api.
-const APP_BASE_PATH = '/project/routiq';
+// Keep the current local mount path by default. Vercel builds can set
+// VITE_APP_BASE_PATH=/ to serve the SPA from the deployment root.
+const configuredBasePath = (process.env.VITE_APP_BASE_PATH || '/project/routiq').trim();
+const APP_BASE_PATH = configuredBasePath === '/'
+  ? ''
+  : `/${configuredBasePath.replace(/^\\/+|\\/+$/g, '')}`;
 const backendTarget = process.env.ROUTIQ_DJANGO_URL || 'http://127.0.0.1:8000';
 const safeBackendTarget = (() => {
   try {
@@ -33,7 +37,7 @@ const backend = { target: backendTarget, changeOrigin: true, secure: false };
 
 export default defineConfig({
   plugins: [react()],
-  base: `${APP_BASE_PATH}/`,
+  base: APP_BASE_PATH ? `${APP_BASE_PATH}/` : '/',
   cacheDir: process.env.ROUTIQ_VITE_CACHE_DIR || undefined,
   build: {
     rollupOptions: {
