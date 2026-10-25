@@ -1,0 +1,53 @@
+name: One-time sensitive history cleanup
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  scrub-history:
+    if: contains(github.event.head_commit.message, '[PURGE_ENV_HISTORY_ONCE]')
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Remove tracked environment and local database files from all commits
+        shell: bash
+        env:
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          expected_head="$(git rev-parse HEAD)"
+          remote_url="$(git remote get-url origin)"
+
+          python -m pip install --quiet git-filter-repo
+
+          git filter-repo --force \
+            --path .env \
+            --path code/backend/.env \
+            --path code/backend/gunicorn/gunicorn.env \
+            --path code/backend/database2.sqlite3 \
+            --path code/backend/db.sqlite3 \
+            --path code/backend/routiq.sqlite3 \
+            --path code/backend/routiq_government.sqlite3 \
+            --invert-paths
+
+          # git-filter-repo removes origin intentionally to prevent accidental pushes.
+          git remote add origin "$remote_url"
+
+          # Remove this one-time helper from the final source tree.
+          git rm -f .github/workflows/purge-sensitive-history.yml
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "Remove one-time history cleanup workflow"
+
+          # Refuse to overwrite main if another commit landed while the cleanup ran.
+          git push --force-with-lease="refs/heads/main:${expected_head}" origin HEAD:refs/heads/main
