@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { CSSProperties, FormEvent } from 'react';
 import { detectorReadinessMessage } from '../services/detectorReadiness';
+import { API_BASE_URL } from '../config';
 import type { DetectorReadiness } from '../services/detectorReadiness';
 import { normalizeApiPayload } from '../services/apiPayload';
 import type { ApiPayload } from '../services/apiPayload';
@@ -71,7 +72,7 @@ type AuthPayload = {
   success?: boolean;
 };
 
-const API_ROOT = '/api/v1';
+const API_ROOT = `${API_BASE_URL.replace(/\\/+$/, '')}/v1`;
 const ACCESS_KEY = 'routiq_access_token';
 const REFRESH_KEY = 'routiq_refresh_token';
 const USER_KEY = 'routiq_user';
