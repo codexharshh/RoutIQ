@@ -39,22 +39,6 @@ export default defineConfig({
   plugins: [react()],
   base: APP_BASE_PATH ? `${APP_BASE_PATH}/` : '/',
   cacheDir: process.env.ROUTIQ_VITE_CACHE_DIR || undefined,
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes('/node_modules/')) return undefined;
-          if (/\/node_modules\/(leaflet|react-leaflet|react-leaflet-cluster|@react-leaflet)\//.test(id)) {
-            return 'map-vendor';
-          }
-          if (/\/node_modules\/(react|react-dom|scheduler|loose-envify)\//.test(id)) {
-            return 'react-vendor';
-          }
-          return undefined;
-        },
-      },
-    },
-  },
   server: {
     host: '0.0.0.0',
     port: 5173,
