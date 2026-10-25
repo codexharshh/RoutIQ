@@ -1,5 +1,6 @@
 import type { RoadHealthData, ContractorMessage } from '../types';
 import { API_CONFIG } from '../constants/api';
+import { API_BASE_URL } from '../config';
 
 class RoadHealthService {
     private static instance: RoadHealthService;
@@ -28,7 +29,7 @@ class RoadHealthService {
             if (!refresh) continue;
 
             try {
-                const response = await fetch('/api/v1/auth/token/refresh/', {
+                const response = await fetch(`${API_BASE_URL.replace(/\\/+$/, '')}/v1/auth/token/refresh/`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
