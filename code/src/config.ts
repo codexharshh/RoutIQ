@@ -5,5 +5,5 @@ export const PRE_URL = '';
 const configuredApiBase = import.meta.env.VITE_API_BASE_URL?.trim() || '/api';
 const configuredGovApiBase = import.meta.env.VITE_GOV_API_BASE_URL?.trim() || '/gov-api';
 
-export const API_BASE_URL = configuredApiBase.replace(/\\/+$/, '');
-export const GOV_API_BASE_URL = configuredGovApiBase.replace(/\\/+$/, '');
+export const API_BASE_URL = configuredApiBase.replace(/\/+$/, '');
+export const GOV_API_BASE_URL = configuredGovApiBase.replace(/\/+$/, '');
