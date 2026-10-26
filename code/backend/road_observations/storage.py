@@ -139,45 +139,100 @@ class PrivateEvidenceStorage(FileSystemStorage):
             raise OSError("Private evidence storage upload failed.") from exc
         return name
 
+    @staticmethod
+    def _response_message(response):
+        """Return a short storage error summary without logging credentials."""
+        try:
+            payload = response.json()
+        except ValueError:
+            return response.text[:240]
+        if isinstance(payload, dict):
+            return str(
+                payload.get("message")
+                or payload.get("error_description")
+                or payload.get("error")
+                or payload.get("statusCode")
+                or "Storage request rejected."
+            )[:240]
+        return "Storage request rejected."
+
+    def _create_signed_url(self, name, expires_in=60):
+        """Create a short-lived URL for an object in the private bucket."""
+        name = self._checked_name(name)
+        bucket = quote(self.supabase_bucket, safe="")
+        path = quote(name, safe="/")
+        endpoint = f"{self.supabase_url}/storage/v1/object/sign/{bucket}/{path}"
+        response = requests.post(
+            endpoint,
+            json={"expiresIn": expires_in},
+            headers={**self._auth_headers(), "Content-Type": "application/json"},
+            timeout=(10, 30),
+        )
+        if response.status_code in (400, 404):
+            message = self._response_message(response)
+            normalized = message.lower()
+            if any(term in normalized for term in (
+                "object not found", "does not exist", "no such object",
+                "not found", "object does not exist",
+            )):
+                raise FileNotFoundError(name)
+        try:
+            response.raise_for_status()
+        except requests.RequestException as exc:
+            logger.error(
+                "Private evidence signed-URL request failed with storage HTTP status %s (%s)",
+                getattr(getattr(exc, "response", None), "status_code", "unavailable"),
+                self._response_message(exc.response) if getattr(exc, "response", None) is not None else "no response",
+            )
+            raise OSError("Private evidence storage authorization failed.") from exc
+
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise OSError("Private evidence storage returned an invalid signed-URL response.") from exc
+        signed_path = payload.get("signedURL") or payload.get("signedUrl")
+        if not isinstance(signed_path, str) or not signed_path:
+            raise OSError("Private evidence storage did not return a signed URL.")
+        if signed_path.startswith("https://") or signed_path.startswith("http://"):
+            return signed_path
+        if signed_path.startswith("/storage/v1/"):
+            return f"{self.supabase_url}{signed_path}"
+        if signed_path.startswith("/"):
+            return f"{self.supabase_url}/storage/v1{signed_path}"
+        return f"{self.supabase_url}/storage/v1/{signed_path}"
+
     def _open(self, name, mode="rb"):
         if not self.use_supabase:
             return super()._open(name, mode)
         if mode not in {"rb", "r"}:
             raise ValueError("Private evidence storage is read-only when opened; use save() to upload.")
         try:
-            response = requests.get(
-                self._object_url(name),
-                headers=self._auth_headers(),
-                timeout=(10, 60),
-            )
+            signed_url = self._create_signed_url(name)
+            response = requests.get(signed_url, timeout=(10, 60))
             if response.status_code == 404:
                 raise FileNotFoundError(name)
             response.raise_for_status()
         except FileNotFoundError:
             raise
         except requests.RequestException as exc:
-            logger.error("Private evidence download failed with storage HTTP status %s",
-                         getattr(getattr(exc, "response", None), "status_code", "unavailable"))
+            logger.error(
+                "Private evidence download failed with storage HTTP status %s (%s)",
+                getattr(getattr(exc, "response", None), "status_code", "unavailable"),
+                self._response_message(exc.response) if getattr(exc, "response", None) is not None else "no response",
+            )
             raise OSError("Private evidence storage download failed.") from exc
+        except OSError:
+            raise
         return File(BytesIO(response.content), name=name)
 
     def exists(self, name):
         if not self.use_supabase:
             return super().exists(name)
         try:
-            response = requests.head(
-                self._object_url(name),
-                headers=self._auth_headers(),
-                timeout=(10, 30),
-            )
-            if response.status_code == 404:
-                return False
-            response.raise_for_status()
+            self._create_signed_url(name)
             return True
-        except requests.RequestException as exc:
-            logger.error("Private evidence existence check failed with storage HTTP status %s",
-                         getattr(getattr(exc, "response", None), "status_code", "unavailable"))
-            raise OSError("Private evidence storage existence check failed.") from exc
+        except FileNotFoundError:
+            return False
 
     def delete(self, name):
         if not self.use_supabase:
@@ -201,11 +256,7 @@ class PrivateEvidenceStorage(FileSystemStorage):
         if not self.use_supabase:
             return super().size(name)
         try:
-            response = requests.head(
-                self._object_url(name),
-                headers=self._auth_headers(),
-                timeout=(10, 30),
-            )
+            response = requests.head(self._create_signed_url(name), timeout=(10, 30))
             if response.status_code == 404:
                 raise FileNotFoundError(name)
             response.raise_for_status()
@@ -213,6 +264,10 @@ class PrivateEvidenceStorage(FileSystemStorage):
         except FileNotFoundError:
             raise
         except requests.RequestException as exc:
+            logger.error(
+                "Private evidence size lookup failed with storage HTTP status %s",
+                getattr(getattr(exc, "response", None), "status_code", "unavailable"),
+            )
             raise OSError("Private evidence storage size lookup failed.") from exc
 
     def path(self, name):
