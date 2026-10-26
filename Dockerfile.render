@@ -1,0 +1,152 @@
+# Lightweight Render backend: inference is hosted by Roboflow, not downloaded here.
+# This keeps PyTorch, Ultralytics and model weights off the 512 MB free service.
+FROM python:3.11-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    DJANGO_ENVIRONMENT=production \
+    DJANGO_DEBUG=false \
+    DJANGO_SETTINGS_MODULE=routiq_config.production_settings \
+    PYTHONPATH=/app/code/backend \
+    ROUTIQ_DETECTOR_BACKEND=roboflow \
+    ROBOFLOW_MODEL_ID=road-damages-detection/1 \
+    ROBOFLOW_API_URL=https://detect.roboflow.com \
+    ROUTIQ_VISION_URL=http://127.0.0.1:8100
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      nginx supervisor tesseract-ocr libgl1 libglib2.0-0 libgomp1 ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY code/backend/ /app/code/backend/
+WORKDIR /app/code/backend
+
+RUN pip install --no-cache-dir \
+      "django>=5.2.4,<5.3" \
+      "fastapi>=0.115,<1.0" \
+      "uvicorn[standard]>=0.30,<1.0" \
+      "requests>=2.32.4" \
+      "httpx>=0.27,<1.0" \
+      "django-cors-headers>=4.7.0" \
+      "django-filter>=25.1" \
+      "djangorestframework>=3.16.0" \
+      "djangorestframework-simplejwt>=5.5,<6" \
+      "pillow>=11.3.0" \
+      "dj-database-url>=2.2.0" \
+      "gunicorn>=21.2.0" \
+      "whitenoise>=6.6.0" \
+      "psycopg2-binary>=2.9.9" \
+      "python-dotenv>=1.2.2" \
+      "numpy>=1.24.0" \
+      "opencv-python-headless>=4.8.0" \
+      "pandas>=2.0.0" \
+      "geopy>=2.3.0" \
+      "cvzone>=1.6.1" \
+      "pytesseract>=0.3.10"
+
+RUN mkdir -p /app/code/backend/staticfiles /app/code/backend/media /var/log/supervisor /run/nginx
+
+RUN cat > /etc/nginx/sites-available/default <<'NGINX'
+server {
+    listen 0.0.0.0:10000;
+    server_name _;
+    client_max_body_size 25m;
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok";
+    }
+
+    location = / {
+        default_type text/plain;
+        return 200 "RoutIQ API is running. Open the Vercel frontend.";
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /gov-api/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /accounts/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /media/ {
+        alias /app/code/backend/media/;
+        autoindex off;
+        add_header X-Content-Type-Options nosniff always;
+    }
+
+    location /static/ {
+        alias /app/code/backend/staticfiles/;
+        autoindex off;
+        add_header X-Content-Type-Options nosniff always;
+    }
+}
+NGINX
+
+RUN cat > /etc/supervisor/conf.d/routiq.conf <<'SUPERVISOR'
+[supervisord]
+nodaemon=true
+user=root
+logfile=/dev/null
+pidfile=/run/supervisord.pid
+
+[program:fastapi]
+directory=/app/code/backend
+command=uvicorn fastapi_service.main:app --host 127.0.0.1 --port 8100 --workers 1
+autostart=true
+autorestart=true
+priority=10
+stdout_logfile=/dev/fd/1
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/fd/2
+stderr_logfile_maxbytes=0
+
+[program:django]
+directory=/app/code/backend
+command=gunicorn routiq_config.wsgi:application --bind 127.0.0.1:8000 --workers 1 --timeout 90
+autostart=true
+autorestart=true
+priority=20
+stdout_logfile=/dev/fd/1
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/fd/2
+stderr_logfile_maxbytes=0
+
+[program:nginx]
+command=/usr/sbin/nginx -g "daemon off;"
+autostart=true
+autorestart=true
+priority=30
+stdout_logfile=/dev/fd/1
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/fd/2
+stderr_logfile_maxbytes=0
+SUPERVISOR
+
+EXPOSE 10000
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --noinput && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/routiq.conf"]

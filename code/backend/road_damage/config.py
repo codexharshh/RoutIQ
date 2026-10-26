@@ -1,6 +1,8 @@
 ﻿import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
+import re
+from urllib.parse import urlparse
 
 @dataclass(frozen=True)
 class DetectorConfig:
@@ -10,6 +12,9 @@ class DetectorConfig:
     device: str = "cpu"
     model_name: str = "routiq-road-damage"
     model_version: str = "unversioned"
+    api_key: str = field(default="", repr=False)
+    model_id: str = "road-damages-detection/1"
+    api_url: str = "https://detect.roboflow.com"
 
     @classmethod
     def from_env(cls):
@@ -23,6 +28,9 @@ class DetectorConfig:
             device=os.getenv("ROUTIQ_DETECTOR_DEVICE", "cpu").strip(),
             model_name=os.getenv("ROUTIQ_MODEL_NAME", "routiq-road-damage").strip(),
             model_version=os.getenv("ROUTIQ_MODEL_VERSION", "unversioned").strip(),
+            api_key=os.getenv("ROBOFLOW_API_KEY", "").strip(),
+            model_id=os.getenv("ROBOFLOW_MODEL_ID", "road-damages-detection/1").strip(),
+            api_url=os.getenv("ROBOFLOW_API_URL", "https://detect.roboflow.com").strip().rstrip("/"),
         )
 
     def checked_weights_path(self):
@@ -39,6 +47,15 @@ class DetectorConfig:
             return {"status": "disabled", "labels": "not_checked"}
         if self.backend == "mock":
             return {"status": "test_backend_only", "labels": "not_checked"}
+        if self.backend == "roboflow":
+            if not self.api_key:
+                return {"status": "missing_api_key", "labels": "not_checked"}
+            if not re.fullmatch(r"[a-z0-9][a-z0-9_-]*/[0-9]+", self.model_id):
+                return {"status": "invalid_model_id", "labels": "not_checked"}
+            parsed = urlparse(self.api_url)
+            if parsed.scheme != "https" or parsed.hostname not in {"detect.roboflow.com", "serverless.roboflow.com"} or parsed.path not in {"", "/"} or parsed.username or parsed.password:
+                return {"status": "invalid_api_url", "labels": "not_checked"}
+            return {"status": "remote_configured", "labels": "not_checked"}
         if self.backend != "ultralytics":
             return {"status": "unsupported_backend", "labels": "not_checked"}
         if not self.weights_path:

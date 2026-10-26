@@ -28,6 +28,9 @@ def create_detector(config=None):
         )
     if config.backend in ("", "disabled"):
         return DisabledDetector()
+    if config.backend == "roboflow":
+        from .adapters.roboflow_adapter import RoboflowAdapter
+        return RoboflowAdapter(config)
     if config.backend == "ultralytics":
         from .adapters.ultralytics_adapter import UltralyticsAdapter
         return UltralyticsAdapter(config)
