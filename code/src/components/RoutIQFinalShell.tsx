@@ -514,8 +514,23 @@ export default function RoutIQFinalShell() {
     else errors.push(`Pothole statistics: ${statsResult.reason instanceof Error ? statsResult.reason.message : 'request failed'}`);
     if (potholesResult.status === 'fulfilled') setPotholes(potholesResult.value);
     else errors.push(`Road reports: ${potholesResult.reason instanceof Error ? potholesResult.reason.message : 'request failed'}`);
-    if (healthResult.status === 'fulfilled') setRoadHealth(healthResult.value);
-    else errors.push(`Road Health: ${healthResult.reason instanceof Error ? healthResult.reason.message : 'request failed'}`);
+    if (healthResult.status === 'fulfilled') {
+      const payload: unknown = healthResult.value;
+      const items = Array.isArray(payload)
+        ? payload
+        : payload && typeof payload === 'object' && Array.isArray((payload as { results?: unknown }).results)
+          ? (payload as { results: unknown[] }).results
+          : null;
+      if (items) {
+        setRoadHealth(items as RoadHealthData[]);
+      } else {
+        setRoadHealth([]);
+        errors.push('Road Health: the API returned an unexpected response. Check the backend URL and endpoint.');
+      }
+    } else {
+      setRoadHealth([]);
+      errors.push(`Road Health: ${healthResult.reason instanceof Error ? healthResult.reason.message : 'request failed'}`);
+    }
     if (errors.length) setPublicError(errors.join('  |  '));
     setPublicLoading(false);
   }, []);
@@ -1550,7 +1565,8 @@ function DashboardPage(props: {
     { title: 'Existing reports', value: props.publicLoading && totalPotholes === undefined ? '...' : safeCount(totalPotholes), subtitle: 'Legacy road reports', icon: 'road' as IconName, tone: 'graphite' as const },
     { title: 'Needs review', value: props.hasToken ? safeCount(uncertainCount) : '—', subtitle: 'Marked uncertain for review', icon: 'clock' as IconName, tone: 'red' as const },
   ];
-  const roadHealthCounts = props.roadHealth.reduce<Record<string, number>>((counts, item) => {
+  const safeRoadHealth = Array.isArray(props.roadHealth) ? props.roadHealth : [];
+  const roadHealthCounts = safeRoadHealth.reduce<Record<string, number>>((counts, item) => {
     counts[item.health_status] = (counts[item.health_status] ?? 0) + 1;
     return counts;
   }, {});
