@@ -6,6 +6,22 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/api/v1/auth/login/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/auth/login/"
+    },
+    {
+      "source": "/api/v1/auth/register/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/auth/register/"
+    },
+    {
+      "source": "/api/v1/auth/token/refresh/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/auth/token/refresh/"
+    },
+    {
+      "source": "/api/v1/auth/profile/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/auth/profile/"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://routiq-cqn1.onrender.com/api/:path*"
     },
