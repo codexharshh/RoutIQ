@@ -301,8 +301,23 @@ class SessionEvidenceView(APIView):
             return Response({"detail": "No retained image evidence is available."}, status=404)
         if evidence_expiry(session) <= timezone.now():
             return Response({"detail": "The retained image evidence has expired."}, status=410)
+        try:
+            evidence_file = session.image_evidence.open("rb")
+        except FileNotFoundError:
+            logger.warning("Retained evidence file is missing for session %s", session.pk)
+            return Response(
+                {"detail": "The retained image file is no longer available in storage. Re-upload this image to retain it."},
+                status=status.HTTP_410_GONE,
+            )
+        except OSError:
+            logger.exception("Private evidence storage read failed for session %s", session.pk)
+            return Response(
+                {"detail": "Private evidence storage is temporarily unavailable. Please retry later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
         response = FileResponse(
-            session.image_evidence.open("rb"),
+            evidence_file,
             content_type="application/octet-stream",
             as_attachment=True,
             filename="observation-evidence",

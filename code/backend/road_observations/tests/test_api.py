@@ -105,6 +105,18 @@ class RoutIQDetectionApiTests(APITestCase):
         self.client.force_authenticate(user=other)
         self.assertEqual(self.client.get(evidence_url).status_code, status.HTTP_404_NOT_FOUND)
 
+    def test_missing_retained_evidence_returns_gone_instead_of_server_error(self):
+        session = InspectionSession.objects.create(owner=self.user)
+        session.image_evidence.save("missing.png", ContentFile(b"old evidence"), save=True)
+        self.evidence_storage.delete(session.image_evidence.name)
+
+        response = self.client.get(
+            reverse("road_observations:session-evidence", args=[session.pk])
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_410_GONE)
+        self.assertIn("Re-upload this image", response.data["detail"])
+
     def test_owner_can_delete_evidence_without_deleting_observation(self):
         sample = Detection(
             class_id=3, class_name="pothole", confidence=0.91,
