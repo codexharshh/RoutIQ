@@ -84,10 +84,11 @@ class RoadHealthService {
                 headers.delete('Authorization');
             }
 
+            // The production API uses bearer-token authentication, not cross-origin cookies.
+            // Omitting credentials keeps this request compatible with CORS_ALLOW_CREDENTIALS=False.
             return fetch(url, {
                 ...options,
                 headers,
-                credentials: 'include',
             });
         };
 
