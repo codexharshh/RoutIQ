@@ -23,8 +23,8 @@ def required_csv(name: str) -> list[str]:
 
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", os.environ.get("SECRET_KEY", "")).strip()
-if len(SECRET_KEY) < 50 or SECRET_KEY.lower().startswith("replace-with-"):
-    raise ImproperlyConfigured("Configure a strong production DJANGO_SECRET_KEY (at least 50 characters).")
+if len(SECRET_KEY) < 32 or SECRET_KEY.lower().startswith("replace-with-"):
+    raise ImproperlyConfigured("Configure a strong production DJANGO_SECRET_KEY (at least 32 characters).")
 
 ALLOWED_HOSTS = required_csv("DJANGO_ALLOWED_HOSTS")
 CORS_ALLOWED_ORIGINS = required_csv("DJANGO_CORS_ALLOWED_ORIGINS")
