@@ -46,7 +46,7 @@ class RoutIQVisionEndpointTests(unittest.TestCase):
             model_id="road-damages-detection/1",
             api_url="https://detect.roboflow.com",
         )
-        with patch("fastapi_service.routers.vision.DetectorConfig.from_env", return_value=config), \\
+        with patch("fastapi_service.routers.vision.DetectorConfig.from_env", return_value=config), \
                 patch("fastapi_service.routers.vision.get_detector") as get_detector:
             response = client.get("/detector-status")
         self.assertEqual(response.status_code, 200, response.text)
