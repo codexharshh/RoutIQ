@@ -22,6 +22,46 @@
       "destination": "https://routiq-cqn1.onrender.com/api/v1/auth/profile/"
     },
     {
+      "source": "/api/potholes/stats/",
+      "destination": "https://routiq-cqn1.onrender.com/api/potholes/stats/"
+    },
+    {
+      "source": "/api/potholes/",
+      "destination": "https://routiq-cqn1.onrender.com/api/potholes/"
+    },
+    {
+      "source": "/api/road-health/",
+      "destination": "https://routiq-cqn1.onrender.com/api/road-health/"
+    },
+    {
+      "source": "/api/road-health/:path*",
+      "destination": "https://routiq-cqn1.onrender.com/api/road-health/:path*"
+    },
+    {
+      "source": "/api/contractor-messages/:path*",
+      "destination": "https://routiq-cqn1.onrender.com/api/contractor-messages/:path*"
+    },
+    {
+      "source": "/api/v1/road-observations/:path*",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/:path*"
+    },
+    {
+      "source": "/api/upload-videos/",
+      "destination": "https://routiq-cqn1.onrender.com/api/upload-videos/"
+    },
+    {
+      "source": "/api/upload-gps/",
+      "destination": "https://routiq-cqn1.onrender.com/api/upload-gps/"
+    },
+    {
+      "source": "/api/process-video/",
+      "destination": "https://routiq-cqn1.onrender.com/api/process-video/"
+    },
+    {
+      "source": "/api/cleanup-uploads/",
+      "destination": "https://routiq-cqn1.onrender.com/api/cleanup-uploads/"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://routiq-cqn1.onrender.com/api/:path*"
     },
@@ -38,7 +78,7 @@
       "destination": "https://routiq-cqn1.onrender.com/media/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/|gov-api/|accounts/|media/).*)",
       "destination": "/index.html"
     }
   ]
