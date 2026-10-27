@@ -58,6 +58,10 @@
       "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/"
     },
     {
+      "source": "/api/v1/road-observations/detect/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/detect/"
+    },
+    {
       "source": "/api/v1/road-observations/:path*",
       "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/:path*"
     },
