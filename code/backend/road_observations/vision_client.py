@@ -167,7 +167,7 @@ class FastAPIVisionClient:
             "disabled", "test_backend_only", "unsupported_backend", "missing_weights_path",
             "weights_not_found", "invalid_weights_path", "invalid_configuration",
             "weights_present_unverified", "ready_to_test", "model_loaded_labels_unavailable",
-            "incompatible_labels", "dependency_missing", "model_load_failed",
+            "incompatible_labels", "dependency_missing", "model_load_failed", "remote_configured",
         }
         if not isinstance(payload, dict) or not isinstance(payload.get("status"), str) or payload["status"] not in statuses:
             raise VisionReadinessError("RoutIQ Vision Service returned an invalid readiness response.")

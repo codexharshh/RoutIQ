@@ -18,6 +18,7 @@ export function detectorReadinessMessage(readiness: DetectorReadiness): string {
     incompatible_labels: 'The loaded model labels do not match RoutIQ damage classes. Select a compatible model.',
     dependency_missing: 'A required inference dependency is missing from the vision-service environment.',
     model_load_failed: 'The model could not be loaded. Review the vision-service configuration and logs.',
+    remote_configured: 'Hosted Roboflow settings are present, but the model has not been verified by a real image request. If detection returns HTTP 404, verify the exact Roboflow project/version ID and access permissions.',
     ready_to_test: 'The model loaded with compatible labels. This endpoint reports startup readiness; image inference is confirmed by a successful analysis request.',
     weights_present_unverified: 'A weights file is present, but model loading and real inference have not been verified.',
     model_loaded_labels_unavailable: 'The model loaded, but its class labels could not be verified.',

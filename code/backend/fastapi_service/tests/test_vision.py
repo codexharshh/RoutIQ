@@ -39,6 +39,22 @@ class RoutIQVisionEndpointTests(unittest.TestCase):
         self.assertFalse(response.json()["inference_tested"])
         get_detector.assert_not_called()
 
+    def test_detector_status_accepts_configured_hosted_model(self):
+        config = DetectorConfig(
+            backend="roboflow",
+            api_key="test-api-key",
+            model_id="road-damages-detection/1",
+            api_url="https://detect.roboflow.com",
+        )
+        with patch("fastapi_service.routers.vision.DetectorConfig.from_env", return_value=config), \\
+                patch("fastapi_service.routers.vision.get_detector") as get_detector:
+            response = client.get("/detector-status")
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["status"], "remote_configured")
+        self.assertEqual(response.json()["labels"], "not_checked")
+        self.assertFalse(response.json()["inference_tested"])
+        get_detector.assert_not_called()
+
     def test_detector_status_reports_missing_weights_without_loading_a_model(self):
         config = DetectorConfig(backend="ultralytics", weights_path="")
         with patch("fastapi_service.routers.vision.DetectorConfig.from_env", return_value=config), \

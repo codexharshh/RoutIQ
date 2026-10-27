@@ -23,6 +23,22 @@ class FastAPIVisionClientTests(unittest.TestCase):
             result = FastAPIVisionClient().detector_status()
         self.assertEqual(result, {"status": "ready_to_test", "labels": "compatible", "inference_tested": False})
 
+    def test_remote_configured_detector_status_is_sanitized(self):
+        response = Mock(ok=True, status_code=200)
+        response.json.return_value = {
+            "status": "remote_configured",
+            "labels": "not_checked",
+            "inference_tested": False,
+            "service": "routiq-vision",
+        }
+        with patch("road_observations.vision_client.requests.get", return_value=response):
+            result = FastAPIVisionClient().detector_status()
+        self.assertEqual(result, {
+            "status": "remote_configured",
+            "labels": "not_checked",
+            "inference_tested": False,
+        })
+
     def test_malformed_detector_status_is_rejected(self):
         response = Mock(ok=True, status_code=200)
         response.json.return_value = {"status": ["ready_to_test"], "labels": "compatible"}

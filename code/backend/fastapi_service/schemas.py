@@ -105,7 +105,7 @@ class DetectorReadinessResponse(BaseModel):
         "disabled", "test_backend_only", "unsupported_backend", "missing_weights_path",
         "weights_not_found", "invalid_weights_path", "invalid_configuration",
         "weights_present_unverified", "ready_to_test", "model_loaded_labels_unavailable",
-        "incompatible_labels", "dependency_missing", "model_load_failed",
+        "incompatible_labels", "dependency_missing", "model_load_failed", "remote_configured",
     ]
     labels: Literal["not_checked", "compatible", "incompatible"]
     service: Literal["routiq-vision"] = "routiq-vision"
