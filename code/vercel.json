@@ -62,6 +62,14 @@
       "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/detect/"
     },
     {
+      "source": "/api/v1/road-observations/temporal-review/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/temporal-review/"
+    },
+    {
+      "source": "/api/v1/road-observations/session-evidence-review/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/session-evidence-review/"
+    },
+    {
       "source": "/api/v1/road-observations/:path*",
       "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/:path*"
     },
