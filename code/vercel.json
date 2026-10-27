@@ -42,6 +42,22 @@
       "destination": "https://routiq-cqn1.onrender.com/api/contractor-messages/:path*"
     },
     {
+      "source": "/api/v1/road-observations/detector-status/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/detector-status/"
+    },
+    {
+      "source": "/api/v1/road-observations/sessions/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/sessions/"
+    },
+    {
+      "source": "/api/v1/road-observations/stats/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/stats/"
+    },
+    {
+      "source": "/api/v1/road-observations/",
+      "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/"
+    },
+    {
       "source": "/api/v1/road-observations/:path*",
       "destination": "https://routiq-cqn1.onrender.com/api/v1/road-observations/:path*"
     },

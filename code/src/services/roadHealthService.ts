@@ -19,9 +19,12 @@ class RoadHealthService {
 
     // RoutIQ JWT auto-refresh v1
     private async refreshAccessToken(): Promise<string | null> {
+        // RoutIQ account tokens are the primary session for this application.
+        // Check them before legacy government tokens so a stale legacy token
+        // cannot repeatedly win the refresh race.
         const tokenPairs = [
-            { accessKey: 'gov_auth_token', refreshKey: 'gov_refresh_token' },
             { accessKey: 'routiq_access_token', refreshKey: 'routiq_refresh_token' },
+            { accessKey: 'gov_auth_token', refreshKey: 'gov_refresh_token' },
         ];
 
         for (const pair of tokenPairs) {
@@ -64,7 +67,8 @@ class RoadHealthService {
 
     private async request<T>(
         endpoint: string,
-        options: RequestInit = {}
+        options: RequestInit = {},
+        authenticated = true
     ): Promise<T> {
         const url = `${this.baseURL}${endpoint}`;
 
@@ -93,15 +97,18 @@ class RoadHealthService {
         };
 
         try {
-            // The legacy road-health API uses the government token namespace;
-            // RoutIQ account tokens are also supported as a fallback.
-            let token =
-                localStorage.getItem('gov_auth_token') ||
-                localStorage.getItem('routiq_access_token');
+            // Prefer the active RoutIQ account session. Some legacy read-only
+            // endpoints are intentionally public; callers can opt out of attaching
+            // browser-stored tokens so an expired token cannot turn a public GET
+            // into a 401 before Django applies IsAuthenticatedOrReadOnly.
+            let token = authenticated
+                ? (localStorage.getItem('routiq_access_token') ||
+                   localStorage.getItem('gov_auth_token'))
+                : null;
 
             let response = await sendRequest(token);
 
-            if (response.status === 401) {
+            if (authenticated && response.status === 401) {
                 const refreshed = await this.refreshAccessToken();
 
                 if (refreshed) {
@@ -163,9 +170,11 @@ class RoadHealthService {
         }
     }
 
-    // Get road health data for all segments
+    // RoadHealthViewSet inherits IsAuthenticatedOrReadOnly: list/read requests
+    // are public, while its mutations remain authenticated. Do not attach stale
+    // localStorage JWTs to this public GET.
     async getRoadHealthData(): Promise<RoadHealthData[]> {
-        return this.request<RoadHealthData[]>('/road-health/');
+        return this.request<RoadHealthData[]>('/road-health/', { method: 'GET' }, false);
     }
 
     // Send message to contractor
